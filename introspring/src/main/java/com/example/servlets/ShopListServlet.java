@@ -26,7 +26,7 @@ public class ShopListServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//Get the info of the form from the request
-        String sale = req.getParameter("saleInput");
+        String sale = req.getParameter("inputSale");
         shopService.addItem(sale);
         System.out.println(shopService.getShopList().size());
         //Basically refreshing the page forcibly so it gets updated with the changes
