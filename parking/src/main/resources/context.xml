@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Beans for the services -->
+    <bean id="vehicleService" class="org.example.service.VehicleService">
+        <constructor-arg ref="vehicleRepository"/>
+        <constructor-arg ref="driverRepository"/>
+    </bean>
+
+    <bean id="driverService" class="org.example.service.DriverService">
+        <constructor-arg ref="driverRepository"/>
+        <constructor-arg ref="vehicleRepository"/>
+    </bean>
+
+    <!-- beans for repository -->
+    <bean id="vehicleRepository" class="org.example.repository.VehicleRepository"/>
+
+    <bean id="driverRepository" class="org.example.repository.DriverRepository"/>
+
+</beans>
