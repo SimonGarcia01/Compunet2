@@ -1,6 +1,5 @@
 package org.example.app;
 
-import org.example.config.AppConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -11,7 +10,7 @@ public class AppContext {
 
     // The actual Spring application context
     private final static ApplicationContext applicationContext =
-            new AnnotationConfigApplicationContext(AppConfig.class);
+            new AnnotationConfigApplicationContext("org.example");
 
     // Private constructor to prevent direct instantiation
     private AppContext() {}
