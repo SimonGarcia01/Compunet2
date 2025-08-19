@@ -1,7 +1,8 @@
 package org.example.app;
 
+import org.example.config.AppConfig;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AppContext {
 
@@ -9,12 +10,11 @@ public class AppContext {
     private static AppContext instance;
 
     // The actual Spring application context
-    final private ApplicationContext applicationContext;
+    private final static ApplicationContext applicationContext =
+            new AnnotationConfigApplicationContext(AppConfig.class);
 
     // Private constructor to prevent direct instantiation
-    private AppContext() {
-        applicationContext = new ClassPathXmlApplicationContext("context.xml");
-    }
+    private AppContext() {}
 
     // Lazily creates the instance when needed
     public static synchronized AppContext getInstance() {
