@@ -15,4 +15,9 @@ public class StudentRepository {
     public void addStudent(Student student){
         students.add(student);
     }
+
+    public void initRepo(){
+        students.add(new Student("A001", "Student1", ""));
+        students.add(new Student("A002", "Student2", ""));
+    }
 }

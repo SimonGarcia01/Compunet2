@@ -9,7 +9,7 @@ public class CourseRepository {
     private ArrayList<Course> courses;
 
     public void addCourse(Course course){
-        courses.add(course)
+        courses.add(course);
     }
 
     public ArrayList<Course> getCourses() {

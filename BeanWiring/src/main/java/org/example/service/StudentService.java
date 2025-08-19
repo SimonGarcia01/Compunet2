@@ -4,6 +4,8 @@ import org.example.model.Student;
 import org.example.repository.CourseRepository;
 import org.example.repository.StudentRepository;
 
+import java.util.ArrayList;
+
 public class StudentService {
 
     private StudentRepository studentRepository;
@@ -21,7 +23,10 @@ public class StudentService {
         } else {
             studentRepository.addStudent(student);
         }
+    }
 
+    public ArrayList<Student> getStudents(){
+        return studentRepository.getStudents();
     }
 
 }

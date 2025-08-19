@@ -17,6 +17,8 @@
 
     <!-- Repositories -->
     <bean id="courseRepository" class="org.example.repository.CourseRepository" />
-    <bean id="studentRepository" class="org.example.repository.StudentRepository" />
+    <bean id="studentRepository"
+          class="org.example.repository.StudentRepository"
+          init-method="initRepo"/>
 
 </beans>

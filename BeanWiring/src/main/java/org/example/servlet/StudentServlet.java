@@ -25,6 +25,11 @@ public class StudentServlet extends HttpServlet {
     //JSP --> Form that sends the data to the next method
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        studentService.addStudent(new Student("111", "aaa", "13"));
+        String studentId = req.getParameter("studentId");
+        String studentName = req.getParameter("studentName");
+        String studentCourse = req.getParameter("studentCourse");
+
+        studentService.addStudent(new Student(studentId, studentName, studentCourse));
+        resp.sendRedirect("./");
     }
 }
