@@ -2,6 +2,8 @@ package org.example.introspringboot.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "students")
 public class Student {
@@ -11,27 +13,39 @@ public class Student {
     @Id
     //This is so the pk automatically changes the ID by incrementing
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    //Changed int to Integer so it matched the intermediate table
+    private Integer id;
     private String name;
     private String code;
     private String program;
 
-    public Student(int id, String name, String code, String program) {
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StudentCourse> studentCourses;
+
+    public Student(Integer id, String name, String code, String program) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.program = program;
     }
 
+    public List<StudentCourse> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
+    }
+
     public Student() {
         //Default constructor
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

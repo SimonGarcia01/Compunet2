@@ -2,33 +2,47 @@ package org.example.introspringboot.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "courses")
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    //Changed int to Integer so it matched the intermediate table
+    private Integer id;
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "professorId")
     private Professor professor;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StudentCourse> studentCourses;
+
     public Course() {
     }
 
-    public Course(int id, String name) {
+    public Course(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<StudentCourse> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(List<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
     public String getName() {
