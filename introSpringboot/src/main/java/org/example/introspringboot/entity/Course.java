@@ -14,6 +14,8 @@ public class Course {
     private Integer id;
     private String name;
 
+    private int credits;
+
     @ManyToOne
     @JoinColumn(name = "professorId")
     private Professor professor;
@@ -24,9 +26,18 @@ public class Course {
     public Course() {
     }
 
-    public Course(Integer id, String name) {
+    public Course(Integer id, String name, int credits) {
         this.id = id;
         this.name = name;
+        this.credits = credits;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
     public Integer getId() {
