@@ -1,6 +1,7 @@
 package org.example.introspringboot.controller;
 
 import org.example.introspringboot.entity.Student;
+import org.example.introspringboot.services.AccountService;
 import org.example.introspringboot.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +14,15 @@ public class StudentController {
     @Autowired
     @Qualifier("studentServiceImpl")
     private StudentService studentService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @GetMapping("transfer")
+    public String transfer(){
+        accountService.transferMoney(1L, 2L, 300.0);
+        return "Transfer Successful";
+    }
 
     @GetMapping("count")
     public String getStudentCount(){

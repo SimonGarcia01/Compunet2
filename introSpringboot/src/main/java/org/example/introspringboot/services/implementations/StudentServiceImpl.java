@@ -1,4 +1,4 @@
-package org.example.introspringboot.implementations;
+package org.example.introspringboot.services.implementations;
 
 import org.example.introspringboot.entity.Student;
 import org.example.introspringboot.repository.StudentRepository;
