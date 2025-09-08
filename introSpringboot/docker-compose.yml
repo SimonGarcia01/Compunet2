@@ -7,11 +7,30 @@ services:
       POSTGRES_USER: 'user'
       POSTGRES_PASSWORD: 'password'
     ports:
-      - '5432:5432'
+      - '10000:5432'
     expose:
       - '5432'
     volumes:
       - my-volume:/var/lib/postgresql/data
+    networks:
+      - pg-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - '8080:80'   # Access pgAdmin at http://localhost:8080
+    depends_on:
+      - db
+    networks:
+      - pg-network
 
 volumes:
   my-volume:
+
+networks:
+  pg-network:
+    driver: bridge
