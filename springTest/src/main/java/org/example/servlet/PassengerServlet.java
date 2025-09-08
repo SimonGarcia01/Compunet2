@@ -22,12 +22,13 @@ public class PassengerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String flightId = req.getParameter("flightId");
         String passengerId = req.getParameter("passengerId");
         String name = req.getParameter("name");
         String passportId = req.getParameter("passportId");
-        String flightId = req.getParameter("flightId");
 
-        passengerService.addPassenger(passengerId, name, passportId, flightId);
+
+        passengerService.addPassenger(flightId, passengerId, name, passportId);
         resp.sendRedirect("./");
     }
 }
