@@ -35,3 +35,15 @@ INSERT INTO students_courses (student_id, course_id) VALUES (4, 5), (4, 8); -- S
 INSERT INTO students_courses (student_id, course_id) VALUES (5, 7); -- David (Arquitectura) en Dibujo Tecnico
 INSERT INTO students_courses (student_id, course_id) VALUES (6, 8); -- Valentina (Diseño) en Historia del Arte
 INSERT INTO students_courses (student_id, course_id) VALUES (7, 3); -- Camila (Medicina) en Anatomia
+
+-- tasks info
+-- El formato YYYY-MM-DD HH:MM:SS es compatible con LocalDateTime
+-- El formato YYYY-MM-DD es compatible con LocalDate
+INSERT INTO tasks (task_code, execution_time, creation_date, description) VALUES
+    ('TASK-001', '2025-10-20 09:00:00', '2025-09-10', 'Realizar backup diario de la base de datos.');
+
+INSERT INTO tasks (task_code, execution_time, creation_date, description) VALUES
+    ('TASK-002', '2025-10-21 18:30:00', '2025-09-10', 'Enviar reporte de ventas semanal.');
+
+INSERT INTO tasks (task_code, execution_time, creation_date, description) VALUES
+    ('TASK-003', '2025-09-15 12:00:00', '2025-09-11', NULL);
