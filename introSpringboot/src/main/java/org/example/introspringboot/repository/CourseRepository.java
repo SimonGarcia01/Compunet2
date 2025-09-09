@@ -1,6 +1,8 @@
 package org.example.introspringboot.repository;
 
 import org.example.introspringboot.entity.Course;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -39,4 +41,10 @@ public interface CourseRepository  extends JpaRepository<Course, Integer> {
 
     //Find all courses with a certain number of credits and then order all courses by name
     List<Course> findByCreditsOrderByNameAsc(int credits);
+
+    //return the courses of a professor in pages
+    Page<Course> findByProfessor_Name(String professorName, Pageable pageable);
+
+    //Return the courses that have credits greater than some number
+    Page<Course> findByCreditsGreaterThanEqual(int credits, Pageable pageable);
 }

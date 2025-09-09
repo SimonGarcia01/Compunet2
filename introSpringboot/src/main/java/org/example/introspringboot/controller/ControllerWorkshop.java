@@ -4,6 +4,7 @@ import org.example.introspringboot.entity.Student;
 import org.example.introspringboot.repository.CourseRepository;
 import org.example.introspringboot.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +47,13 @@ public class ControllerWorkshop {
     @GetMapping("c5")
     public ResponseEntity<?> class5(){
         var out = courseRepository.findByProfessor_NameOrderByNameDesc("Juan Perez");
+        return ResponseEntity.status(200).body(out);
+    }
+
+    @GetMapping("page")
+    public ResponseEntity<?> classPage(){
+        var out = courseRepository.findByCreditsGreaterThanEqual(0,
+                PageRequest.of(0, 4));
         return ResponseEntity.status(200).body(out);
     }
 
