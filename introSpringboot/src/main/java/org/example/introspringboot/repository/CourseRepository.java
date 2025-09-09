@@ -4,6 +4,7 @@ import org.example.introspringboot.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseRepository  extends JpaRepository<Course, Integer> {
     //Find the courses by their exact name
@@ -21,4 +22,21 @@ public interface CourseRepository  extends JpaRepository<Course, Integer> {
     //Count the courses that a professor teaches
     long countByProfessorName(String professorName);
 
+    //return the first element ordered by name in ascending order
+    Optional<Course> findFirstByOrderByNameAsc();
+
+    //return the top 2 courses ordered descending by credits
+    List<Course> findTop2ByOrderByCreditsDesc();
+
+    //Return the 3 courses from a specific professor
+    List<Course> findFirst1ByProfessor_Name(String professorName);
+
+    //Find the courses that are between the min and max range
+    List<Course> findByCreditsBetween(int minCredits, int maxCredits);
+
+    //Find the courses of a professor name his courses which are then ordered by name
+    List<Course> findByProfessor_NameOrderByNameDesc(String professorName);
+
+    //Find all courses with a certain number of credits and then order all courses by name
+    List<Course> findByCreditsOrderByNameAsc(int credits);
 }
