@@ -1,5 +1,6 @@
 package org.example.introspringboot.controller;
 
+import org.example.introspringboot.entity.Course;
 import org.example.introspringboot.entity.Professor;
 import org.example.introspringboot.entity.Student;
 import org.example.introspringboot.repository.CourseRepository;
@@ -35,6 +36,54 @@ public class ControllerWorkshop {
     @GetMapping("2")
     public ResponseEntity<?> ws2(){
         List<Professor> output = professorRepository.findByNameContainingIgnoreCase("g");
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("3")
+    public ResponseEntity<?> ws3(){
+        List<Course> output = courseRepository.findByCreditsEquals(3);
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("4")
+    public ResponseEntity<?> ws4(){
+        List<Student> output = studentRepository.findByProgramEquals("Ingenieria de Sistemas");
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("5")
+    public ResponseEntity<?> ws5(){
+        Optional<Course> output = courseRepository.findByNameEqualsIgnoreCase("derecho penal");
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("6")
+    public ResponseEntity<?> ws6(){
+        List<Course> output = courseRepository.findByProfessor_NameEqualsOrderByNameAsc("Carlos Gomez");
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("7")
+    public ResponseEntity<?> ws7(){
+        List<Student> output = studentRepository.findByProgramEqualsAndCodeStartsWith("Ingenieria de Sistemas", "30");
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("8")
+    public ResponseEntity<?> ws8(){
+        List<Course> output = courseRepository.findByCreditsBetween(2,3);
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("9")
+    public ResponseEntity<?> ws9(){
+        List<Student> output = studentRepository.findByStudentCourses_Course_Professor_NameEquals("Maria Rodriguez");
+        return ResponseEntity.status(200).body(output);
+    }
+
+    @GetMapping("10")
+    public ResponseEntity<?> ws10(){
+        List<Professor> output = professorRepository.findDistinctByCourses_StudentCourses_Student_ProgramEquals("Ingenieria de Sistemas");
         return ResponseEntity.status(200).body(output);
     }
 

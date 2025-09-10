@@ -33,9 +33,6 @@ public interface CourseRepository  extends JpaRepository<Course, Integer> {
     //Return the 3 courses from a specific professor
     List<Course> findFirst1ByProfessor_Name(String professorName);
 
-    //Find the courses that are between the min and max range
-    List<Course> findByCreditsBetween(int minCredits, int maxCredits);
-
     //Find the courses of a professor name his courses which are then ordered by name
     List<Course> findByProfessor_NameOrderByNameDesc(String professorName);
 
@@ -47,4 +44,16 @@ public interface CourseRepository  extends JpaRepository<Course, Integer> {
 
     //Return the courses that have credits greater than some number
     Page<Course> findByCreditsGreaterThanEqual(int credits, Pageable pageable);
+
+    //3. Workshop - Find all the courses with a specific number of credits
+    List<Course> findByCreditsEquals(int credits);
+
+    //5. Workshop - Find a course by its exact name not case-sensitive
+    Optional<Course> findByNameEqualsIgnoreCase(String name);
+
+    //6. Workshop - Find all the courses given by a specific professor (by name) and order it alphabetically
+    List<Course> findByProfessor_NameEqualsOrderByNameAsc(String professorName);
+
+    //8. Workshop - Find all courses which the number of credits are between a range
+    List<Course> findByCreditsBetween(int minCredits, int maxCredits);
 }
