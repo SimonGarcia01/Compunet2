@@ -13,6 +13,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     //find students that belong to a course using the course name
     List<Student> findByStudentCourses_Course_Name(String courseName);
 
+    //This method is used in the test
     //1. Workshop - find a student by id
     Optional<Student> findByCode(String code);
 
