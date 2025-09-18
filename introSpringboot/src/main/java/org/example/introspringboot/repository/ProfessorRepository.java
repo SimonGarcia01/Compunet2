@@ -4,6 +4,7 @@ import org.example.introspringboot.entity.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProfessorRepository extends JpaRepository<Professor,Integer> {
 
@@ -13,4 +14,6 @@ public interface ProfessorRepository extends JpaRepository<Professor,Integer> {
     //10. Workshop - Find all professors (without duplicates) that teach students from a specific academic program
     // Navigate Professors -> Course -> StudentCourse -> Student
     List<Professor> findDistinctByCourses_StudentCourses_Student_ProgramEquals(String studentProgram);
+
+    Optional<Professor> findByCourses_Name(String name);
 }

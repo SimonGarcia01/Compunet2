@@ -26,6 +26,7 @@ public class Course {
     private List<StudentCourse> studentCourses;
 
     public Course() {
+        //Default constructor
     }
 
     public Course(Integer id, String name, int credits) {

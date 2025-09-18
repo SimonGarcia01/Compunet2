@@ -1,6 +1,7 @@
 package org.example.introspringboot.services.implementations;
 
 import org.example.introspringboot.entity.Student;
+import org.example.introspringboot.repository.ProfessorRepository;
 import org.example.introspringboot.repository.StudentRepository;
 import org.example.introspringboot.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class StudentServiceImpl implements StudentService {
     //Give access to the repository of students
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     //Override the method so it actually knows what to do
     @Override
@@ -41,6 +44,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getStudentsByCourseName(String name) {
-        return studentRepository.findByStudentCourses_Course_Name(name);
+        //First call is to the professorRepository to check if the course has a repository
+        if(professorRepository.findByCourses_Name(name).isPresent()){
+            //Returns the list of students that are within a case
+            return studentRepository.findByStudentCourses_Course_Name(name);
+        }
+
+        throw new RuntimeException();
     }
 }
