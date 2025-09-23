@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professor Detail</title>
+</head>
+    <body>
+        <h1 th:text="${professor.name}"></h1>
+        <ol th:each="course : ${professor.courses}">
+            <li th:text="${course.name}"></li>
+        </ol>
+    </body>
+</html>

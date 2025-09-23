@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Course</title>
+</head>
+<body>
+<h1>New Course</h1>
+
+<form method="POST" th:action="@{/courses/save}" th:object="${course}">
+    <input type="text" placeholder="Name" th:field="*{name}"><br>
+    <input type="text" placeholder="Credits" th:field="*{credits}"><br>
+    <select th:field="*{professor}">
+        <option th:each="prof : ${professorList}" th:text="${prof.name}" th:value="${prof.id}"></option>
+    </select>
+    <button type="submit">Save</button>
+</form>
+
+<h1>Current Courses</h1>
+<ol>
+    <li th:each="course : ${courseList}">
+        <a th:href="@{/courses/{id}(id=${course.id})}" th:text="${course.name}"></a>
+    </li>
+</ol>
+
+</body>
+</html>

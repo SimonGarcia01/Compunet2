@@ -2,23 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 
-<h2>Add a Student</h2>
-<form th:action="@{students/save}" method="POST" th:object="${student}">
-    <input type="text" th:field="*{name}" placeholder="Write your name">
-    <br>
-    <input type="text" th:field="*{code}" placeholder="Write your code">
-    <br>
-    <input type="text" th:field="*{program}" placeholder="Write your program">
-    <br>
-    <button>Button</button>
+<h2>Agregar estudiante</h2>
+
+
+<form th:action="@{/students/save}" method="post" th:object="${student}">
+    <input type="text" th:field="*{name}" placeholder="Escriba el nombre"> <br>
+    <input type="text" th:field="*{code}" placeholder="Escriba el code"> <br>
+    <input type="text" th:field="*{program}" placeholder="Escriba el programa"> <br>
+    <button>Enviar</button>
 </form>
 
-<h2>Student List</h2>
+
+<h2>Lista de Estudiantes</h2>
 <ul>
-    <li th:each="s : ${studentList}">
-        The student <strong th:text="${s.name}"></strong> studies
+    <li th:each="s : ${studentsList}">
+        El estudiante <strong th:text="${s.name}"></strong> estudia
         <span th:text="${s.program}"></span>
     </li>
 </ul>
+
+
 </body>
 </html>

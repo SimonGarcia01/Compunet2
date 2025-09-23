@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Enrollment</title>
+    </head>
+    <body>
+        <h1>Students</h1>
+        <select>
+           <option th:each="student : ${students}" th:text="${student.name}" th:value="${student.id}"></option>
+        </select>
+    </body>
+</html>

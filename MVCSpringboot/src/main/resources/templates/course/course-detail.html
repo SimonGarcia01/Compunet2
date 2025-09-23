@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Course Detail</title>
+    </head>
+    <body>
+        <h1 th:text="${course.name}">Replaceable Course Name</h1>
+        <p th:text="${course.credits}">Replaceable credits</p>
+        <a th:href="@{/professors/{id}(id=${course.professor.id})}" th:text="${course.professor.name}"></a>
+    </body>
+</html>

@@ -1,9 +1,9 @@
 package org.example.introspringboot.controller;
 
+
 import org.example.introspringboot.entity.Student;
 import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,26 +18,23 @@ import java.util.List;
 public class StudentController {
 
     @Autowired
-    @Qualifier("studentServiceImpl")
     private StudentService studentService;
 
     @GetMapping("/")
-    public String getStudents(Model model){
-        List<Student> students = studentService.getStudents();
-        model.addAttribute("studentList", students);
+    public String getStudents(Model model) {
+        List<Student> studentsList = studentService.getStudents();
+        model.addAttribute("studentsList", studentsList);
 
-        //For a form you need to send the empty shell so it can be filled
         Student student = new Student();
         model.addAttribute("student", student);
 
         return "student/student-list";
     }
-
     @PostMapping("/save")
-    public String saveStudent(@ModelAttribute Student student){ //Receive the eggshell filled
+    //Here we get the filled eggshells
+    public String saveStudent(@ModelAttribute Student student) {
         studentService.save(student);
         return "redirect:/students/";
     }
-
 
 }
