@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Curso</title>
+</head>
+<body>
+<h1>Nuevo Curso</h1>
+
+
+<form th:action="@{/courses/save}" method="post" th:object="${course}">
+    <input type="text" placeholder="Nombre" th:field="*{name}"><br>
+    <input type="number" placeholder="Crédito" th:field="*{credits}"><br>
+    <select th:field="*{professor}">
+        <option
+                th:each="prof : ${professorList}"
+                th:text="${prof.name}"
+                th:value="${prof.id}"
+        ></option>
+    </select>
+    <button>Crear</button>
+</form>
+
+<ol>
+    <li th:each="course : ${courseList}">
+        <a th:href="@{/courses/{id}(id=${course.id})}"
+           th:text="${course.name}"
+        ></a>
+    </li>
+</ol>
+
+</body>
+</html>
