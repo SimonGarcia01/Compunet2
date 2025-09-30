@@ -26,13 +26,14 @@ INSERT INTO students_courses (student_id, course_id) VALUES (6, 8); -- Valentina
 INSERT INTO students_courses (student_id, course_id) VALUES (7, 3); -- Camila (Medicina) en Anatomia
 
 -- Roles
-INSERT INTO roles (id, name) VALUES (1, 'ROLE_STUDENT'), (2, 'ROLE_PROFESSOR');
+INSERT INTO roles (name) VALUES ( 'ROLE_STUDENT'), ('ROLE_PROFESSOR');
 
 -- Permissions
-INSERT INTO permissions (id, name) VALUES (1, 'VIEW_COURSES'), (2, 'VIEW_OWN_COURSES'), (3, 'EDIT_COURSES'), (4, 'VIEW_STUDENTS');
+INSERT INTO permissions (name) VALUES ('VIEW_COURSES'), ('VIEW_OWN_COURSES'), ('EDIT_COURSES'), ('VIEW_STUDENTS');
 
 -- Users
-INSERT INTO users (id, username, password) VALUES (1, 'estudiante1@gmail.com', 'estudiante'), (2, 'profesor1@gmail.com', 'profesor');
+INSERT INTO users (username, password) VALUES ('estudiante1@gmail.com', '$2a$12$LE5wWF2zJKLfE98E4KgJPO.buVfS0xHlSg2F2ciQMnk5kdgEBx506'),
+                                              ('profesor1@gmail.com', '$2a$12$LE5wWF2zJKLfE98E4KgJPO.buVfS0xHlSg2F2ciQMnk5kdgEBx506');
 
 -- User-Roles
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 1), (2, 2);

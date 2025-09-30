@@ -11,19 +11,5 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class H2AccessConfig {
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(toH2Console()).permitAll()
-                        .anyRequest().authenticated()
-                )
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(toH2Console())
-                )
-                .headers(headers -> headers
-                        .frameOptions(frameOptions -> frameOptions.sameOrigin())
-                ).formLogin(withDefaults());
-        return http.build();
-    }
+
 }

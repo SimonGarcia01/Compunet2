@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+</head>
+<body>
+    <h1>Sign up</h1>
+    <form method="POST" th:action="@{/auth/signup}" th:object="${user}">
+        <input type="text" placeholder="Enter your email" th:field="*{username}"/><br>
+        <input type="text" placeholder="Enter your password" th:field="*{password}"/><br>
+        <button>Submit</button>
+    </form>
+
+</body>
+</html>

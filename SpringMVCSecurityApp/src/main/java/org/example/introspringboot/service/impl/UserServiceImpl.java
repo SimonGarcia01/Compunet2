@@ -19,4 +19,10 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findByUsername(username);
         return user.orElse(null);
     }
+
+    @Override
+    public void createUser(User user) {
+        //Save the user
+        userRepository.save(user);
+    }
 }

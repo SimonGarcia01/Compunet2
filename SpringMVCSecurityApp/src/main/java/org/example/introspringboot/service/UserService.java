@@ -6,4 +6,6 @@ public interface UserService {
     //Return a user found by the username
     //The Optional<> will be managed within the implementation
     User findByUsername(String username);
+
+    public void createUser(User user);
 }
