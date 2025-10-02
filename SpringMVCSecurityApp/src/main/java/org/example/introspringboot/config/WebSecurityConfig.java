@@ -55,6 +55,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(auth -> auth.
                         //Let anyone connect yo the /auth/signup
                         requestMatchers("/auth/signup").permitAll().
+                        requestMatchers("/css/**").permitAll().
                         //Any other request will need to be authenticated
                         anyRequest().authenticated()
                 //Adding the form login makes it so any route other than public ones
