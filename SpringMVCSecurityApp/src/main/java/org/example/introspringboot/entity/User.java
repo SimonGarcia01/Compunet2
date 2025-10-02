@@ -17,7 +17,7 @@ public class User {
 
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<UserRole> userRoles = new ArrayList<>();
 
     public User() {}

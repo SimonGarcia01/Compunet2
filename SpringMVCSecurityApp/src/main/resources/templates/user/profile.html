@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <p>Username: <span th:text="${user}"></span></p>
+    <p>Authorities:</p>
+    <ul>
+        <li th:each="auth : ${authorities}"
+            th:text="${auth.authority}"></li>
+    </ul>
+    <!-- Form for the button since it's a post method-->
+    <form th:action="@{/logout}" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

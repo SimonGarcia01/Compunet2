@@ -4,6 +4,7 @@ package org.example.introspringboot.controller;
 import org.example.introspringboot.entity.Student;
 import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @PreAuthorize("hasRole('PROFESSOR')")
     @GetMapping("/")
     public String getStudents(Model model) {
         List<Student> studentsList = studentService.getStudents();

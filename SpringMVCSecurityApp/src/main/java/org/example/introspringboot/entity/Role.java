@@ -18,7 +18,7 @@ public class Role {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private List<UserRole> userRoles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<RolePermission> rolePermissions = new ArrayList<>();
 
     public Role() {}

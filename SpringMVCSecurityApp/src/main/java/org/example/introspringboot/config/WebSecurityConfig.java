@@ -2,7 +2,9 @@ package org.example.introspringboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@EnableMethodSecurity
 public class WebSecurityConfig {
     //This bean is so that the entered password is not tried to be encrypted
     //This is not safe! Later this will be commented.
@@ -55,14 +58,26 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(auth -> auth.
                         //Let anyone connect yo the /auth/signup
                         requestMatchers("/auth/signup").permitAll().
+                        //Give access to the static css files
                         requestMatchers("/css/**").permitAll().
+
+                        //Give access to the student list only to a professor
+                        //requestMatchers("/students/").hasAnyRole("PROFESSOR").
+
                         //Any other request will need to be authenticated
                         anyRequest().authenticated()
                 //Adding the form login makes it so any route other than public ones
                 //will be sent to the login page
                 ).formLogin(login -> login
                 .loginPage("/auth/login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/user/me", true)
+                .permitAll()
+                //Now add the logout condition
+        ).logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
         );
 
