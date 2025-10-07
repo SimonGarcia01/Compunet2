@@ -39,8 +39,6 @@ public class WebSecurityConfig {
                 .securityMatcher(toH2Console())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(toH2Console()).permitAll()
-                        //This is taken out so the other filters are not ignored
-//                        .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(toH2Console())
