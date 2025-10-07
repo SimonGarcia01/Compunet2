@@ -1,0 +1,64 @@
+/* style.css – Simple purple theme */
+
+body {
+  background-color: #1e1a2b;   /* dark purple background */
+  color: white;                /* white text */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* container to center content */
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #2b2540;  /* slightly lighter purple */
+  border-radius: 10px;
+}
+
+/* headings */
+h1, h2, h3 {
+  color: #b89cff;             /* light purple text */
+  text-align: center;
+}
+
+/* paragraphs and text */
+p {
+  line-height: 1.5;
+  color: #e0d8ff;
+}
+
+/* links */
+a {
+  color: #a980ff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* buttons */
+button {
+  background-color: #6a3be6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #8b5fff;
+}
+
+/* simple input and form styling */
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  border: 1px solid #6a3be6;
+  border-radius: 6px;
+  background-color: #322b4f;
+  color: white;
+}
