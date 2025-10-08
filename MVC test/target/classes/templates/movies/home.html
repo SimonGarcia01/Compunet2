@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <form method="GET" th:action="@{/movies/create}">
+        <button type="submit">Add a New Movie</button>
+    </form>
+    <h1>Movie List</h1>
+    <div th:each="movie : ${movies}" class="container">
+        <a th:href="@{/movies/{id} (id=${movie.id})}"><h2 th:text="${movie.title}"></h2></a>
+        <h3 th:text="${movie.director}"></h3>
+        <p th:text="${movie.genre}"></p>
+        <p th:text="${movie.releaseYear}"></p>
+        <img th:src="${movie.imageUrl}" alt="Movie Image Couldn't Load :c"/>
+    </div>
+</body>
+</html>

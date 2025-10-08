@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Movie</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Update the Selected Movie</h1>
+<form method="POST" th:action="@{/movies/update/{id} (id=${movie.id})}" th:object="${movie}" class="container">
+    <input type="text" th:placeholder="${movie.title}" th:field="*{title}"> <br>
+    <input type="text" th:placeholder="${movie.director}" th:field="*{director}"> <br>
+    <input type="text" th:placeholder="${movie.genre}" th:field="*{genre}"> <br>
+    <input type="text" th:placeholder="${movie.releaseYear}" th:field="*{releaseYear}"> <br>
+    <input type="text" th:placeholder="${movie.imageUrl}" th:field="*{imageUrl}"> <br>
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

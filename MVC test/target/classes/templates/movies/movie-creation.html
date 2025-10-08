@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Creation</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Create a Movie</h1>
+    <form method="POST" th:action="@{/movies/create}" th:object="${movie}" class = "container" >
+        <input type="text" placeholder="Title" th:field="*{title}"> <br>
+        <input type="text" placeholder="Director" th:field="*{director}"> <br>
+        <input type="text" placeholder="Genre" th:field="*{genre}"> <br>
+        <input type="text" placeholder="Release Year" th:field="*{releaseYear}"> <br>
+        <input type="text" placeholder="Image Url" th:field="*{imageUrl}"> <br>
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>

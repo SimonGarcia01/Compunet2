@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${movie.title}"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+    <h1 th:text="${movie.title}"></h1>
+    <h2 th:text="${movie.director}"></h2>
+    <h3 th:text="${movie.genre}"></h3>
+        <h3 th:text="${movie.releaseYear}"></h3>
+        <img th:src="${movie.imageUrl}" alt="Movie Image Couldn't Load :c"/>
+        <form method="POST" th:action="@{/movies/delete/{id} (id=${movie.id})}">
+            <button type="submit" th:text="'Delete ' + ${movie.title}"></button>
+        </form>
+        <form method="GET" th:action="@{/movies/update/{id} (id=${movie.id})}">
+            <button type="submit" th:text="'Update ' + ${movie.title}"></button>
+        </form>
+        <form method="GET" th:action="@{/movies/}">
+            <button>Back</button>
+        </form>
+    </div>
+</body>
+</html>
