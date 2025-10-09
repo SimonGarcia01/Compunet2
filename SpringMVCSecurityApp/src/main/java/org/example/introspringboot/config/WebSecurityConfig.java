@@ -54,6 +54,9 @@ public class WebSecurityConfig {
     @Order(2)
     public SecurityFilterChain appSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.
+                        //For the first try for REST class
+                        requestMatchers("/api/v1/**").permitAll().
+
                         //Let anyone connect yo the /auth/signup
                         requestMatchers("/auth/signup").permitAll().
                         //Give access to the static css files
@@ -64,9 +67,13 @@ public class WebSecurityConfig {
 
                         //Any other request will need to be authenticated
                         anyRequest().authenticated()
+
+                //To disable csrf token for the time being to use postman
+        ).csrf( csrf -> csrf.disable())
+
                 //Adding the form login makes it so any route other than public ones
                 //will be sent to the login page
-                ).formLogin(login -> login
+                .formLogin(login -> login
                 .loginPage("/auth/login")
                 .defaultSuccessUrl("/user/me", true)
                 .permitAll()
