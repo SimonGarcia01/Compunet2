@@ -1,9 +1,13 @@
 package org.example.introspringboot.config;
 
+import org.example.introspringboot.filter.TokenValidationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,6 +19,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -22,6 +27,17 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
+
+    //This is added to then use the token validator filter
+    @Autowired
+    private TokenValidationFilter tokenValidationFilter;
+
+    //This is to make our own implementation of the authentication manager
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
     //This bean is so that the entered password is not tried to be encrypted
     //This is not safe! Later this will be commented.
     @Bean
@@ -60,6 +76,8 @@ public class WebSecurityConfig {
                         //To give access to everything in the REST api part
                         requestMatchers("/api/v1/**").permitAll()
         )
+                //Added the token validation filter before so it's used by the UsernamePasswordAuthenticationFilter
+                .addFilterBefore(tokenValidationFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(
                 sessionManagement -> sessionManagement.
                         sessionCreationPolicy(SessionCreationPolicy.STATELESS)

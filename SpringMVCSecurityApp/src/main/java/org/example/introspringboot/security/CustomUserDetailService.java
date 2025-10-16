@@ -18,8 +18,12 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //Get the user from the DB
         User user = userService.findByUsername(username);
-        //Map the user from the DB into the one in the Spring version
-        CustomUserDetails appUser = new CustomUserDetails(user);
-        return appUser;
+        if(user!=null){
+            //Map the user from the DB into the one in the Spring version
+            CustomUserDetails appUser = new CustomUserDetails(user);
+            return appUser;
+        }else{
+            throw new RuntimeException("Username not found");
+        }
     }
 }

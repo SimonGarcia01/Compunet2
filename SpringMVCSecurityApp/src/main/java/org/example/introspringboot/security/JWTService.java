@@ -1,12 +1,18 @@
 package org.example.introspringboot.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class JWTService {
@@ -24,8 +30,55 @@ public class JWTService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
+                //Now use the method to set the claims within the token
+                .setClaims(
+                        createClaims(
+                                userDetails
+                        )
+                )
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
                 .compact();
     }
+
+    //Make a map that holds the username and the privileges into strings
+    public Map<String, Object> createClaims(UserDetails userDetails){
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", userDetails.getUsername());
+        claims.put("authorities",
+                userDetails.getAuthorities()
+                        .stream()
+                        .map(authority -> authority.getAuthority())
+                        .toList());
+        return claims;
+    }
+
+    //Now we make a method to get the claims we want from the token
+    public Claims parseToken(String token){
+        try{
+            //To get the info you need the secretkey of the server to actually translate the info
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
+                    .build()
+                    //Go through the claims of the token
+                    .parseClaimsJws(token)
+                    //
+                    .getBody();
+            return claims;
+
+        // If the token expires
+        } catch(ExpiredJwtException e){
+            System.out.println("token expired");
+            throw e;
+        //If the content of the payload is edited
+        } catch(SignatureException e){
+            System.out.println("Token signature exception");
+            throw e;
+        //If the token doesn't have those three parts specifically
+        } catch(MalformedJwtException e){
+            System.out.println("Token malformed exception");
+            throw e;
+        }
+    }
+
 
 }
