@@ -27,15 +27,20 @@ public class JWTService {
         Date expiry = new Date(now.getTime() + 1000L * 60L * expirationMinutes);
 
         return Jwts.builder()
+                //add to the token the user
                 .setSubject(userDetails.getUsername())
+                //set the time it was generated
                 .setIssuedAt(now)
+                //Set the expiration date for that token
                 .setExpiration(expiry)
-                //Now use the method to set the claims within the token
-                .setClaims(
+                //Now use the method to add the payload
+                //.setClaims resets everything before so it's changed into add
+                .addClaims(
                         createClaims(
                                 userDetails
                         )
                 )
+                //to make the key
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
                 .compact();
     }

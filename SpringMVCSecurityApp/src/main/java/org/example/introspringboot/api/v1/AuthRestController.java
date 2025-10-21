@@ -39,6 +39,7 @@ public class AuthRestController {
         try{
             //This is calling user detail service which calls the user service
             //Goes through the user repository and getting to the DB
+            //This is done so you don't have to do the authentication yourself
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     authRequest.getUsername(), authRequest.getPassword()
             ));

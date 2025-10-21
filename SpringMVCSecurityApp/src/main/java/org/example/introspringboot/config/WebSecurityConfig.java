@@ -1,5 +1,6 @@
 package org.example.introspringboot.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.example.introspringboot.filter.TokenValidationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -74,14 +75,36 @@ public class WebSecurityConfig {
                 securityMatcher("/api/v1/**").
                 authorizeHttpRequests(auth -> auth.
                         //To give access to everything in the REST api part
-                        requestMatchers("/api/v1/**").permitAll()
+                        //Now we are going to add security
+                        //Only permit all on login
+                        requestMatchers("/api/v1/auth/login/").permitAll().
+                        //Any other request will need to be authenticated
+                        anyRequest().authenticated()
         )
                 //Added the token validation filter before so it's used by the UsernamePasswordAuthenticationFilter
                 .addFilterBefore(tokenValidationFilter, UsernamePasswordAuthenticationFilter.class)
+                //Make sure the session is set to stateless for rest
                 .sessionManagement(
                 sessionManagement -> sessionManagement.
                         sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                ).csrf(csrf -> csrf.disable());
+                //The csrf token is disabled
+                ).csrf(csrf -> csrf.disable())
+
+                //Now we are blocking the app using exceptions
+                .exceptionHandling(ex -> ex
+                //If the user doesn't have the right credentials it will be blocked = 401
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"Unauthorized\"}");
+                })
+                //If the user doesn't have the right level of authorities he is also blocked = 403
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\": \"Forbidden\"}");
+                })
+        );
 
         return http.build();
     }

@@ -6,6 +6,7 @@ import org.example.introspringboot.entity.Professor;
 import org.example.introspringboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,6 +19,7 @@ public class ProfessorRestController {
     private ProfessorService professorService;
 
     @GetMapping("/")
+    @PreAuthorize("hasAuthority('ROLE_PROFESSOR')")
     public ResponseEntity<?>  getProfessors(){
 
         var professors = professorService.findAll();
