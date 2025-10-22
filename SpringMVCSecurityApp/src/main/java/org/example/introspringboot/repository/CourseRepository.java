@@ -23,5 +23,8 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     Page<Course> findByCreditsGreaterThanEqual(int credits, Pageable pageable);
 
+    //This method doesn't need to be declared since it's already implemented within
+    //The JPA repository, like that List version of findAll();
+    //Page<Course> findAll(Pageable pageable);
 
 }

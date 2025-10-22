@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-14T15:56:33-0500",
+    date = "2025-10-22T12:30:03-0500",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.8 (Oracle Corporation)"
 )
 @Component
@@ -41,5 +41,17 @@ public class ProfessorMapperImpl implements ProfessorMapper {
         professor.setName( professorDTO.getName() );
 
         return professor;
+    }
+
+    @Override
+    public void updateEntityFromDTO(ProfessorDTO professorDTO, Professor professor) {
+        if ( professorDTO == null ) {
+            return;
+        }
+
+        if ( professorDTO.getId() != null ) {
+            professor.setId( professorDTO.getId() );
+        }
+        professor.setName( professorDTO.getName() );
     }
 }

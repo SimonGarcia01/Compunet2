@@ -1,6 +1,7 @@
 package org.example.introspringboot.controller;
 
 
+import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
 import org.example.introspringboot.entity.Course;
 import org.example.introspringboot.entity.Professor;
 import org.example.introspringboot.entity.Student;
@@ -28,7 +29,7 @@ public class CourseController {
 
     @GetMapping("/")
     public String getStudents(Model model) {
-        List<Course> courseList = courseService.findAll();
+        List<CourseProfessorResponse> courseList = courseService.findAll();
         model.addAttribute("courseList", courseList);
         model.addAttribute("course", new Course());
         model.addAttribute("professorList", professorService.findAll());
@@ -43,7 +44,7 @@ public class CourseController {
 
     @GetMapping("/{id}")
     public String courseDetail(@PathVariable("id") Integer id, Model model) {
-        Optional<Course> course = courseService.findById(id);
+        Optional<CourseProfessorResponse> course = courseService.findById(id);
         if(course.isPresent()){
             model.addAttribute("course", course.get());
             return "course/course-detail";
