@@ -1,6 +1,7 @@
 package org.example.introspringboot.service.impl;
 
 import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
+import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
 import org.example.introspringboot.api.v1.mappers.CourseMapper;
 import org.example.introspringboot.entity.Course;
 import org.example.introspringboot.repository.CourseRepository;
@@ -41,6 +42,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public Optional<CourseProfessorResponse> findById(Integer id) {
         return courseRepository.findById(id).map(courseMapper::toDto);
+    }
+
+    @Override
+    public CourseProfessorStudentListResponse getCourseProfessorListStudents(Integer id) {
+        return courseRepository.findById(id).map(courseMapper::toCourseProfessorList).orElse(null);
     }
 
     @Override
