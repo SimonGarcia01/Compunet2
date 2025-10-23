@@ -3,13 +3,14 @@ package org.example.introspringboot.api.v1.mappers;
 import javax.annotation.processing.Generated;
 import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
 import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
+import org.example.introspringboot.api.v1.dto.CourseResponse;
 import org.example.introspringboot.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-22T13:52:35-0500",
+    date = "2025-10-22T15:06:26-0500",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.8 (Oracle Corporation)"
 )
 @Component
@@ -46,5 +47,20 @@ public class CourseMapperImpl implements CourseMapper {
         courseProfessorStudentListResponse.setName( course.getName() );
 
         return courseProfessorStudentListResponse;
+    }
+
+    @Override
+    public CourseResponse toBasicCourse(Course course) {
+        if ( course == null ) {
+            return null;
+        }
+
+        CourseResponse courseResponse = new CourseResponse();
+
+        courseResponse.setId( course.getId() );
+        courseResponse.setName( course.getName() );
+        courseResponse.setCredits( course.getCredits() );
+
+        return courseResponse;
     }
 }

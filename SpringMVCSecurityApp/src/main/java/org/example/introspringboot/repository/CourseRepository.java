@@ -10,6 +10,12 @@ import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
+    //This method doesn't need to be declared since it's already implemented within
+    //The JPA repository, like that List version of findAll();
+    //Page<Course> findAll(Pageable pageable);
+
+    Page<Course> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
     Optional<Course> findFirstByOrderByNameAsc();
 
     List<Course> findTop2ByOrderByCreditsDesc();
@@ -22,9 +28,5 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     Page<Course> findByProfessor_Name(String professorName, Pageable pageable);
 
     Page<Course> findByCreditsGreaterThanEqual(int credits, Pageable pageable);
-
-    //This method doesn't need to be declared since it's already implemented within
-    //The JPA repository, like that List version of findAll();
-    //Page<Course> findAll(Pageable pageable);
 
 }

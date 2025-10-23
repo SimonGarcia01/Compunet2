@@ -2,6 +2,7 @@ package org.example.introspringboot.service.impl;
 
 import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
 import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
+import org.example.introspringboot.api.v1.dto.CourseResponse;
 import org.example.introspringboot.api.v1.mappers.CourseMapper;
 import org.example.introspringboot.entity.Course;
 import org.example.introspringboot.repository.CourseRepository;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,5 +57,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteById(Integer id) {
         courseRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<CourseResponse> getCourseWName(String name, Pageable pageable) {
+        return courseRepository.findByNameContainingIgnoreCase(name,pageable).map(courseMapper::toBasicCourse);
     }
 }
