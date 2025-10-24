@@ -6,16 +6,16 @@ public class CourseProfessorStudentListResponse {
 
     private String name;
     private ProfessorDTO professorDTO;
-    private List<String> studentNames;
+    private List<StudentDTO> studentDTOs;
 
     public CourseProfessorStudentListResponse() {
         //Default constructor
     }
 
-    public CourseProfessorStudentListResponse(String name, ProfessorDTO professorDTO, List<String> studentNames) {
+    public CourseProfessorStudentListResponse(String name, ProfessorDTO professorDTO, List<StudentDTO> studentDTOs) {
         this.name = name;
         this.professorDTO = professorDTO;
-        this.studentNames = studentNames;
+        this.studentDTOs = studentDTOs;
     }
 
     public String getName() {
@@ -34,11 +34,11 @@ public class CourseProfessorStudentListResponse {
         this.professorDTO = professorDTO;
     }
 
-    public List<String> getStudentNames() {
-        return studentNames;
+    public List<StudentDTO> getStudentDTOs() {
+        return studentDTOs;
     }
 
-    public void setStudentNames(List<String> studentNames) {
-        this.studentNames = studentNames;
+    public void setStudentDTOs(List<StudentDTO> studentNames) {
+        this.studentDTOs = studentNames;
     }
 }

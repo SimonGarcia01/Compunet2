@@ -13,6 +13,13 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = ProfessorMapper.class)
 public interface CourseMapper {
 
+    //For the CourseProfessorStudentList DTO
+    @Mapping(source = "professor", target = "professorDTO")
+    //This was used for the wrong way to let the mapper do the work
+    //@Mapping(source = "studentCourses", target = "studentDTOs")
+    //This is only letting the mapper change the name and the professor to DTO version
+    public CourseProfessorStudentListResponse toCourseProfessorList(Course course);
+
     //For the basic CourseProfessorDTO
     //From Entity to DTO
     //Within the Course Entity, the professor variable = "professor"
@@ -22,22 +29,18 @@ public interface CourseMapper {
     @Mapping(source="name", target="courseName")
     public CourseProfessorResponse toDto(Course course);
 
-    //For the CourseProfessorStudentList DTO
-    @Mapping(source = "professor", target = "professorDTO")
-    @Mapping(source = "studentCourses", target = "studentNames")
-    public CourseProfessorStudentListResponse toCourseProfessorList(Course course);
-
     //For the basic course with no professor or students
     //No need for any mapping, they are all named the same within the course and DTO
     public CourseResponse toBasicCourse(Course course);
 
     // Helper method for MapStruct to use when mapping the list
-    default List<String> mapStudentCoursesToNames(List<StudentCourse> studentCourses) {
-        if (studentCourses == null) {
-            return null;
-        }
-        return studentCourses.stream()
-                .map(sc -> sc.getStudent().getName())
-                .toList();
-    }
+    //This is not great practice since we can lose control of the transformation
+//    default List<String> mapStudentCoursesToNames(List<StudentCourse> studentCourses) {
+//        if (studentCourses == null) {
+//            return null;
+//        }
+//        return studentCourses.stream()
+//                .map(sc -> sc.getStudent().getName())
+//                .toList();
+//    }
 }

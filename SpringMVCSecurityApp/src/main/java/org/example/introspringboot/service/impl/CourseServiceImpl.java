@@ -44,9 +44,28 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findById(id).map(courseMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public CourseProfessorStudentListResponse getCourseProfessorListStudents(Integer id) {
-        return courseRepository.findById(id).map(courseMapper::toCourseProfessorList).orElse(null);
+    public List<CourseProfessorStudentListResponse> findAllWithStudents() {
+        return courseRepository.findAll().stream().map(
+                course -> {
+                    // Step 1: Use MapStruct for simple fields (name, professor)
+                    CourseProfessorStudentListResponse dto =
+                            courseMapper.toCourseProfessorList(course);
+
+                    // Step 2: Manually map complex relation: students
+                    List<StudentDTO> studentList = course.getStudentCourses().stream()
+                            .map(studentCourse ->
+                                    studentMapper.toDto(studentCourse.getStudent())
+                            )
+                            .toList();
+
+                    // Step 3: Assign manually
+                    dto.setStudentDTOs(studentList);
+
+                    return dto;
+                }
+        ).toList();
     }
 
     @Override
@@ -63,4 +82,6 @@ public class CourseServiceImpl implements CourseService {
     public Page<CourseResponse> getCourseWName(String name, Pageable pageable) {
         return courseRepository.findByNameContainingIgnoreCase(name,pageable).map(courseMapper::toBasicCourse);
     }
+
+
 }

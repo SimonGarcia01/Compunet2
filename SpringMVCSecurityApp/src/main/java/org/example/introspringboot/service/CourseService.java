@@ -14,7 +14,9 @@ public interface CourseService {
     List<CourseProfessorResponse> findAll();
     Page<CourseProfessorResponse> findAll(Pageable pageable);
     Optional<CourseProfessorResponse> findById(Integer id);
-    CourseProfessorStudentListResponse getCourseProfessorListStudents(Integer id);
+
+    List<CourseProfessorStudentListResponse> findAllWithStudents();
+
     Course save(Course course);
     void deleteById(Integer id);
     Page<CourseResponse> getCourseWName(String name, Pageable pageable);

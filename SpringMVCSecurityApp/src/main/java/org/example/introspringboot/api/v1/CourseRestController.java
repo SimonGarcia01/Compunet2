@@ -54,7 +54,7 @@ public class CourseRestController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('PROFESSOR')")
     public ResponseEntity<?> getCourseById(@PathVariable("id") Integer id){
-        CourseProfessorStudentListResponse response = courseService.getCourseProfessorListStudents(id);
+        CourseProfessorStudentListResponse response = courseService.findAllWithStudents(id);
         return ResponseEntity.status(200).body(response);
     }
 }
