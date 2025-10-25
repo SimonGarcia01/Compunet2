@@ -114,9 +114,6 @@ public class WebSecurityConfig {
     @Order(3)
     public SecurityFilterChain appSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.
-                        //For the first try for REST class
-                        requestMatchers("/api/v1/**").permitAll().
-
                         //Let anyone connect yo the /auth/signup
                         requestMatchers("/auth/signup").permitAll().
                         //Give access to the static css files
