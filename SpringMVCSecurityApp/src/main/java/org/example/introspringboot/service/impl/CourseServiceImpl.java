@@ -3,7 +3,9 @@ package org.example.introspringboot.service.impl;
 import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
 import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
 import org.example.introspringboot.api.v1.dto.CourseResponse;
+import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.api.v1.mappers.CourseMapper;
+import org.example.introspringboot.api.v1.mappers.StudentMapper;
 import org.example.introspringboot.entity.Course;
 import org.example.introspringboot.repository.CourseRepository;
 import org.example.introspringboot.service.CourseService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +26,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public List<CourseProfessorResponse> findAll() {
@@ -46,26 +52,22 @@ public class CourseServiceImpl implements CourseService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<CourseProfessorStudentListResponse> findAllWithStudents() {
-        return courseRepository.findAll().stream().map(
-                course -> {
-                    // Step 1: Use MapStruct for simple fields (name, professor)
+    public CourseProfessorStudentListResponse findAllWithStudents(Integer id) {
+        //Find the Course by id
+        return courseRepository.findById(id)
+                .map(course -> {
                     CourseProfessorStudentListResponse dto =
                             courseMapper.toCourseProfessorList(course);
 
-                    // Step 2: Manually map complex relation: students
                     List<StudentDTO> studentList = course.getStudentCourses().stream()
                             .map(studentCourse ->
                                     studentMapper.toDto(studentCourse.getStudent())
                             )
                             .toList();
 
-                    // Step 3: Assign manually
                     dto.setStudentDTOs(studentList);
-
                     return dto;
-                }
-        ).toList();
+                }).orElse(null);
     }
 
     @Override

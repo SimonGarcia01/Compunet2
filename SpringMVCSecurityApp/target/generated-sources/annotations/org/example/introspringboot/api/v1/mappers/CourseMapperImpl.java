@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-22T15:06:26-0500",
+    date = "2025-10-24T22:52:57-0500",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.8 (Oracle Corporation)"
 )
 @Component
@@ -18,6 +18,20 @@ public class CourseMapperImpl implements CourseMapper {
 
     @Autowired
     private ProfessorMapper professorMapper;
+
+    @Override
+    public CourseProfessorStudentListResponse toCourseProfessorList(Course course) {
+        if ( course == null ) {
+            return null;
+        }
+
+        CourseProfessorStudentListResponse courseProfessorStudentListResponse = new CourseProfessorStudentListResponse();
+
+        courseProfessorStudentListResponse.setProfessorDTO( professorMapper.toDto( course.getProfessor() ) );
+        courseProfessorStudentListResponse.setName( course.getName() );
+
+        return courseProfessorStudentListResponse;
+    }
 
     @Override
     public CourseProfessorResponse toDto(Course course) {
@@ -32,21 +46,6 @@ public class CourseMapperImpl implements CourseMapper {
         courseProfessorResponse.setCredits( course.getCredits() );
 
         return courseProfessorResponse;
-    }
-
-    @Override
-    public CourseProfessorStudentListResponse toCourseProfessorList(Course course) {
-        if ( course == null ) {
-            return null;
-        }
-
-        CourseProfessorStudentListResponse courseProfessorStudentListResponse = new CourseProfessorStudentListResponse();
-
-        courseProfessorStudentListResponse.setProfessorDTO( professorMapper.toDto( course.getProfessor() ) );
-        courseProfessorStudentListResponse.setStudentNames( mapStudentCoursesToNames( course.getStudentCourses() ) );
-        courseProfessorStudentListResponse.setName( course.getName() );
-
-        return courseProfessorStudentListResponse;
     }
 
     @Override
