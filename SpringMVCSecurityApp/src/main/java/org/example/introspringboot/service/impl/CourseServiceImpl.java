@@ -85,5 +85,14 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findByNameContainingIgnoreCase(name,pageable).map(courseMapper::toBasicCourse);
     }
 
+    @Override
+    public List<StudentDTO> getCourseStudents(Integer id) {
+        return courseRepository.findById(id).
+                map(course -> course.getStudentCourses().stream()
+                        .map(studentCourse -> studentMapper.toDto(studentCourse.getStudent()))
+                        .toList()
+                )
+                .orElse(null);
+    }
 
 }
