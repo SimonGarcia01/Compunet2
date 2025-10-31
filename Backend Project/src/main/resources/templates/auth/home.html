@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Gym App</title>
+    <link rel="stylesheet" th:href="@{/css/gym-style.css}">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <h1>Bienvenido a Gym App 💪</h1>
+            <p>Sistema de gestión de actividad física</p>
+        </div>
+
+        <div class="user-info">
+            <p><strong>Usuario:</strong> <span th:text="${auth.name}">correo</span></p>
+            <p><strong>Roles:</strong> <span th:text="${auth.authorities[0]}">rol</span></p>
+        </div>
+
+        <div class="menu-grid">
+            <a th:href="@{/users/list}" class="menu-card">
+                <div class="menu-card-icon">👥</div>
+                <h3>Usuarios</h3>
+                <p>Gestionar usuarios del sistema</p>
+            </a>
+
+            <a th:href="@{/roles}" class="menu-card">
+                <div class="menu-card-icon">🛡️</div>
+                <h3>Roles</h3>
+                <p>Administrar roles de acceso</p>
+            </a>
+
+            <a th:href="@{/privileges}" class="menu-card">
+                <div class="menu-card-icon">🔐</div>
+                <h3>Privilegios</h3>
+                <p>Configurar permisos del sistema</p>
+            </a>
+
+            <a th:href="@{/auth/create-user}" class="menu-card">
+                <div class="menu-card-icon">➕</div>
+                <h3>Nuevo Usuario</h3>
+                <p>Registrar un nuevo usuario</p>
+            </a>
+        </div>
+
+        <div class="text-center" style="margin-top: 3rem;">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

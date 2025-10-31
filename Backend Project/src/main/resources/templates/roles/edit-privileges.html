@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Privilegios - Gym App</title>
+    <link rel="stylesheet" th:href="@{/css/gym-style.css}">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <h1>Editar Privilegios del Rol</h1>
+            <p>Modificar permisos asociados al rol</p>
+        </div>
+
+        <nav>
+            <a th:href="@{/roles}">← Volver a Roles</a>
+            <a th:href="@{/home}">🏠 Inicio</a>
+        </nav>
+
+        <div class="card" style="max-width: 700px; margin: 0 auto;">
+            <div th:if="${success}" class="alert alert-success">
+                <span>✓</span>
+                <span th:text="${success}"></span>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger">
+                <span>⚠️ Característica permitida sólo para el rol <strong>Administrador.</strong></span>
+                <span th:text="${error}"></span>
+            </div>
+
+            <div class="user-info" style="margin-bottom: 2rem;">
+                <p>
+                    <strong>Rol:</strong>
+                    <span th:text="${role.name}">Nombre</span>
+                </p>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">
+                    <em th:text="${role.description}">Descripción</em>
+                </p>
+            </div>
+
+            <form th:action="@{|/roles/${role.roleId}/edit-privileges|}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <div class="form-group">
+                    <label>Privilegios</label>
+                    <div class="checkbox-group">
+                        <div th:each="p : ${privileges}" class="checkbox-item">
+                            <input type="checkbox"
+                                   th:id="${'priv-' + p.privilegeId}"
+                                   name="privilegeIds"
+                                   th:value="${p.privilegeId}"
+                                   th:checked="${selectedPrivilegeIds != null and selectedPrivilegeIds.contains(p.privilegeId)}"/>
+                            <label th:for="${'priv-' + p.privilegeId}" class="checkbox-label">
+                                <span th:text="${p.name}">Nombre Privilegio</span>
+                                <small class="checkbox-description" th:text="${p.description}">desc</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary btn-lg">Guardar Cambios</button>
+                    <a th:href="@{/roles}" class="btn btn-outline btn-lg">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
