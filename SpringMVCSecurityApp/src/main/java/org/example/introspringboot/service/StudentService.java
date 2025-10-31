@@ -30,4 +30,6 @@ public interface StudentService {
     Page<StudentDTO> getStudentsByProgram(String program, Pageable pageable);
 
     void createStudent(StudentDTO studentDTO);
+
+    void updateStudent(Integer id, StudentDTO request);
 }

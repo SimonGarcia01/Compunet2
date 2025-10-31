@@ -93,5 +93,24 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentMapper.toEntity(studentDTO);
         studentRepository.save(student);
     }
+
+    @Override
+    public void updateStudent(Integer id, StudentDTO request) {
+
+        Student student = studentRepository.findById(id).orElse(null);
+
+        // Update only non-null fields
+        if (request.getName() != null)
+            student.setName(request.getName());
+
+        if (request.getCode() != null)
+            student.setCode(request.getCode());
+
+        if (request.getProgram() != null)
+            student.setProgram(request.getProgram());
+
+        studentRepository.save(student);
+    }
+
 }
 

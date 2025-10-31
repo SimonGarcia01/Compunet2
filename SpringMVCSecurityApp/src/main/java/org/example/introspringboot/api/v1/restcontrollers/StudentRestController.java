@@ -41,4 +41,11 @@ public class StudentRestController {
         studentService.createStudent(studentDTO);
         return ResponseEntity.status(200).body(new MessageResponse("Student Created Successfully"));
     }
+
+    //REST E11.
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateStudent(@PathVariable Integer id, @RequestBody StudentDTO request) {
+        studentService.updateStudent(id, request);
+        return ResponseEntity.status(200).body(new MessageResponse("Student Updated Successfully"));
+    }
 }
