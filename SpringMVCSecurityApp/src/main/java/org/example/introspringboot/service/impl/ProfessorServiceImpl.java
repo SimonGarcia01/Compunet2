@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static java.util.Arrays.stream;
-
 @Service
 public class ProfessorServiceImpl implements ProfessorService {
 

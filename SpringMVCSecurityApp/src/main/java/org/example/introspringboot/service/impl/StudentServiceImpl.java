@@ -1,15 +1,18 @@
 package org.example.introspringboot.service.impl;
 
 import org.example.introspringboot.api.v1.dto.CourseResponse;
+import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
 import org.example.introspringboot.api.v1.mappers.CourseMapper;
+import org.example.introspringboot.api.v1.mappers.StudentMapper;
 import org.example.introspringboot.entity.Student;
 import org.example.introspringboot.repository.StudentRepository;
 import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +24,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public long getCount() {
@@ -73,6 +79,13 @@ public class StudentServiceImpl implements StudentService {
         response.setCourses(courses);
 
         return response;
+    }
+
+    @Override
+    public Page<StudentDTO> getStudentsByProgram(String program, Pageable pageable) {
+        return studentRepository.findByProgramOrderByIdAsc(program, pageable).map(
+                studentMapper::toDto
+        );
     }
 }
 

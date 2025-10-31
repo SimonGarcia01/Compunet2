@@ -1,8 +1,9 @@
 package org.example.introspringboot.repository;
 
 import org.example.introspringboot.entity.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,5 +13,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     List<Student> findByStudentCourses_Course_Name(String name);
 
+    Page<Student> findByProgramOrderByIdAsc(String program, Pageable pageable);
 }
 
