@@ -7,12 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,10 +21,14 @@ public class CourseRestController {
 
     //REST E1 y E3.
     //Removed the / from the get so the request param is just ?name=X, not /?=name=X
+    //Added the pages so it can be changed using ex /page=0&size=3
+    //Can be combined for example to: /api/v1/courses?name=math&page=1&size=6
     @GetMapping("")
     @PreAuthorize("hasAuthority('ROLE_PROFESSOR')")
-    public ResponseEntity<?> getCourses(@RequestParam(required = false) String name) {
-        PageRequest pageable = PageRequest.of(0, 4);
+    public ResponseEntity<?> getCourses(@RequestParam(required = false) String name,
+                                        @RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "4") int size) {
+        PageRequest pageable = PageRequest.of(page, size);
 
         if (name != null && !name.isBlank()) {
             Page<CourseResponse> response = courseService.getCourseWName(name, pageable);
@@ -65,7 +65,7 @@ public class CourseRestController {
         return ResponseEntity.status(200).body(students);
     }
 
-    //Rest E7.
+    //REST E7.
     @GetMapping("/enrollments")
     @PreAuthorize("hasRole('PROFESSOR')")
     public ResponseEntity<?> getAllCoursesEnrollments(){
@@ -73,4 +73,11 @@ public class CourseRestController {
         return ResponseEntity.status(200).body(courses);
     }
 
+    //REST E8.
+    @PostMapping("")
+    @PreAuthorize("hasRole('PROFESSOR')")
+    public ResponseEntity<?> createCourse(@RequestBody CourseRequest courseRequest){
+        courseService.createCourse(courseRequest);
+        return ResponseEntity.status(200).body(new MessageResponse("Course Created"));
+    }
 }

@@ -1,9 +1,6 @@
 package org.example.introspringboot.api.v1.mappers;
 
-import org.example.introspringboot.api.v1.dto.CourseEnrollmentResponse;
-import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
-import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
-import org.example.introspringboot.api.v1.dto.CourseResponse;
+import org.example.introspringboot.api.v1.dto.*;
 import org.example.introspringboot.entity.Course;
 import org.example.introspringboot.entity.StudentCourse;
 import org.mapstruct.Mapper;
@@ -35,6 +32,9 @@ public interface CourseMapper {
     public CourseResponse toBasicCourse(Course course);
 
     public CourseEnrollmentResponse toCourseEnrollment(Course course);
+
+    @Mapping(source="professorId", target="professor", ignore = true)
+    public Course toEntity(CourseRequest courseRequest);
 
     // Helper method for MapStruct to use when mapping the list
     //This is not great practice since we can lose control of the transformation

@@ -4,6 +4,7 @@ import javax.annotation.processing.Generated;
 import org.example.introspringboot.api.v1.dto.CourseEnrollmentResponse;
 import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
 import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
+import org.example.introspringboot.api.v1.dto.CourseRequest;
 import org.example.introspringboot.api.v1.dto.CourseResponse;
 import org.example.introspringboot.entity.Course;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-31T09:09:35-0500",
+    date = "2025-10-31T11:53:23-0500",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.8 (Oracle Corporation)"
 )
 @Component
@@ -77,5 +78,19 @@ public class CourseMapperImpl implements CourseMapper {
         courseEnrollmentResponse.setCredits( course.getCredits() );
 
         return courseEnrollmentResponse;
+    }
+
+    @Override
+    public Course toEntity(CourseRequest courseRequest) {
+        if ( courseRequest == null ) {
+            return null;
+        }
+
+        Course course = new Course();
+
+        course.setCredits( courseRequest.getCredits() );
+        course.setName( courseRequest.getName() );
+
+        return course;
     }
 }

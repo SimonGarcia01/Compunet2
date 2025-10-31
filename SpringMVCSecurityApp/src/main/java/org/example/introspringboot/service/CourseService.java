@@ -22,4 +22,6 @@ public interface CourseService {
     CourseOnlyStudentsResponse getCourseStudents(Integer id);
 
     List<CourseEnrollmentResponse> getCoursesEnrollment();
+
+    void createCourse(CourseRequest courseRequest);
 }

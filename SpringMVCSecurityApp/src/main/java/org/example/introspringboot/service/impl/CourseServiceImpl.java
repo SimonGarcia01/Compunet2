@@ -5,6 +5,7 @@ import org.example.introspringboot.api.v1.mappers.CourseMapper;
 import org.example.introspringboot.api.v1.mappers.StudentMapper;
 import org.example.introspringboot.entity.Course;
 import org.example.introspringboot.repository.CourseRepository;
+import org.example.introspringboot.repository.ProfessorRepository;
 import org.example.introspringboot.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     @Autowired
     private CourseMapper courseMapper;
@@ -106,6 +110,13 @@ public class CourseServiceImpl implements CourseService {
                 return courseEnrollment;
             }
         ).toList();
+    }
+
+    @Override
+    public void createCourse(CourseRequest courseRequest) {
+        Course course = courseMapper.toEntity(courseRequest);
+        course.setProfessor(professorRepository.findById(courseRequest.getProfessorId()).orElse(null));
+        courseRepository.save(course);
     }
 
 }
