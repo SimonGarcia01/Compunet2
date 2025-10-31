@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Roles - Gym App</title>
+    <link rel="stylesheet" th:href="@{/css/gym-style.css}">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <h1>Editar Roles</h1>
+            <p>Modificar roles de <strong th:text="${user.name}">Usuario</strong></p>
+        </div>
+
+        <nav>
+            <a th:href="@{/users}">← Volver a Usuarios</a>
+            <a th:href="@{/home}">🏠 Inicio</a>
+        </nav>
+
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <form th:action="@{'/users/' + ${user.userId} + '/roles'}" method="post">
+                <div class="form-group">
+                    <label>Seleccionar Roles</label>
+                    <div class="checkbox-group">
+                        <div th:each="role : ${roles}" class="checkbox-item">
+                            <input type="checkbox"
+                                   th:id="${'role-' + role.roleId}"
+                                   name="roleIds"
+                                   th:value="${role.roleId}"
+                                   th:checked="${#lists.contains(user.userRolesList.?[role.roleId == role.roleId], role)}">
+                            <label th:for="${'role-' + role.roleId}" class="checkbox-label">
+                                <span th:text="${role.name}">ROL</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary btn-lg">Guardar Cambios</button>
+                    <a th:href="@{/users}" class="btn btn-outline btn-lg">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

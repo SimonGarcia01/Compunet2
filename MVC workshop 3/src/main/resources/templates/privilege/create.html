@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Privilegio - Gym App</title>
+    <link rel="stylesheet" th:href="@{/css/gym-style.css}">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <h1>Crear Nuevo Privilegio</h1>
+            <p>Define un nuevo permiso para el sistema</p>
+        </div>
+
+        <nav>
+            <a th:href="@{/templates/privilege}">← Volver a Privilegios</a>
+            <a th:href="@{/home}">🏠 Inicio</a>
+        </nav>
+
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <div th:if="${success}" class="alert alert-success">
+                <span>✓</span>
+                <span th:text="${success}"></span>
+            </div>
+
+            <div th:if="${error}" class="alert alert-danger">
+                <span>⚠️</span>
+                <span th:text="${error}"></span>
+            </div>
+
+            <form th:action="@{/templates/privilege/create}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <div class="form-group">
+                    <label for="name">Nombre del Privilegio</label>
+                    <input id="name" type="text" name="name" placeholder="Ver usuarios" required/>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <input id="description" type="text" name="description"
+                           placeholder="Permite ver la lista de usuarios"/>
+                </div>
+
+                <div class="flex gap-2" style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary btn-lg">Crear Privilegio</button>
+                    <a th:href="@{/templates/privilege}" class="btn btn-outline btn-lg">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

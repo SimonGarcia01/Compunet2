@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Bienvenid@</h1>
+<p>Usuario: <span th:text="${username}">usuario@u.icesi.edu.co</span></p>
+
+<h3>Tus autoridades</h3>
+<ul>
+    <li th:each="a : ${authorities}" th:text="${a.authority}">ROLE/PRIV</li>
+</ul>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Salir</button>
+</form>
+</body>
+</html>

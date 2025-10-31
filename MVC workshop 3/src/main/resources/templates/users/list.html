@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios - Gym App</title>
+    <link rel="stylesheet" th:href="@{/css/gym-style.css}">
+</head>
+<body>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <h1>Lista de Usuarios</h1>
+            <p>Gestión de usuarios del sistema</p>
+        </div>
+
+        <nav>
+            <a th:href="@{/home}">🏠 Inicio</a>
+            <a th:href="@{/auth/create-user}">➕ Nuevo Usuario</a>
+            <a th:href="@{/roles}">🛡️ Roles</a>
+            <a th:href="@{/privileges}">🔐 Privilegios</a>
+        </nav>
+
+        <div th:if="${success}" class="alert alert-success">
+            <span>✓</span>
+            <span th:text="${success}"></span>
+        </div>
+
+        <div th:if="${error}" class="alert alert-danger">
+            <span>⚠️</span>
+            <span th:text="${error}"></span>
+        </div>
+
+        <div class="card">
+            <div class="table-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Estado</th>
+                        <th>Roles</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.userId}">1</td>
+                        <td th:text="${user.name}">Nombre</td>
+                        <td th:text="${user.email}">correo@u.icesi.edu.co</td>
+                        <td>
+                            <span th:if="${user.active}" style="color: var(--success); font-weight: 600;">✓ Activo</span>
+                            <span th:unless="${user.active}" style="color: var(--danger); font-weight: 600;">✗ Inactivo</span>
+                        </td>
+                        <td>
+                            <ul>
+                                <li th:each="ur : ${user.userRolesList}" th:text="${ur.role.name}"></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <a th:href="@{'/users/' + ${user.userId} + '/roles'}" class="btn btn-sm btn-primary">
+                                    Editar Roles
+                                </a>
+                                <form th:action="@{'/users/' + ${user.userId} + '/delete'}" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('¿Eliminar este usuario?')">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(users)}">
+                        <td colspan="6" class="text-center" style="padding: 2rem;">
+                            No hay usuarios registrados
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
