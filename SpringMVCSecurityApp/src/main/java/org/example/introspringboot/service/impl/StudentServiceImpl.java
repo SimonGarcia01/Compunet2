@@ -1,11 +1,15 @@
 package org.example.introspringboot.service.impl;
 
+import org.example.introspringboot.api.v1.dto.CourseResponse;
+import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
+import org.example.introspringboot.api.v1.mappers.CourseMapper;
 import org.example.introspringboot.entity.Student;
 import org.example.introspringboot.repository.StudentRepository;
 import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +18,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private CourseMapper courseMapper;
 
     @Override
     public long getCount() {
@@ -51,6 +58,21 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteById(Integer id) {
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public StudentOnlyCoursesResponse getCoursesStudentId(Integer id) {
+        Student student = studentRepository.findById(id).orElse(null);
+
+        List<CourseResponse> courses = student.getStudentCourses().stream().map(
+                studentCourse -> courseMapper.toBasicCourse(studentCourse.getCourse())
+        ).toList();
+
+        StudentOnlyCoursesResponse response = new StudentOnlyCoursesResponse();
+
+        response.setCourses(courses);
+
+        return response;
     }
 }
 

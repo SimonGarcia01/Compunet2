@@ -1,5 +1,6 @@
 package org.example.introspringboot.service;
 
+import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
 import org.example.introspringboot.entity.Student;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface StudentService {
     Student save(Student student);
 
     void deleteById(Integer id);
+
+    StudentOnlyCoursesResponse getCoursesStudentId(Integer id);
 }
