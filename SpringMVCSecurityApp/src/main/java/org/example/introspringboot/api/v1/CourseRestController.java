@@ -1,9 +1,6 @@
 package org.example.introspringboot.api.v1;
 
-import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
-import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
-import org.example.introspringboot.api.v1.dto.CourseResponse;
-import org.example.introspringboot.api.v1.dto.StudentDTO;
+import org.example.introspringboot.api.v1.dto.*;
 import org.example.introspringboot.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -63,7 +60,7 @@ public class CourseRestController {
     @GetMapping("/{id}/students")
     @PreAuthorize("hasRole('PROFESSOR')")
     public ResponseEntity<?> getStudentsInCourse(@PathVariable("id") Integer id){
-        List<StudentDTO> students = courseService.getCourseStudents(id);
+        CourseOnlyStudentsResponse students = courseService.getCourseStudents(id);
         return ResponseEntity.status(200).body(students);
     }
 }

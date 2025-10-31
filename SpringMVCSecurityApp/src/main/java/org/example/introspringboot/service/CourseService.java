@@ -1,9 +1,6 @@
 package org.example.introspringboot.service;
 
-import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
-import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
-import org.example.introspringboot.api.v1.dto.CourseResponse;
-import org.example.introspringboot.api.v1.dto.StudentDTO;
+import org.example.introspringboot.api.v1.dto.*;
 import org.example.introspringboot.entity.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +19,5 @@ public interface CourseService {
     void deleteById(Integer id);
     Page<CourseResponse> getCourseWName(String name, Pageable pageable);
 
-    List<StudentDTO> getCourseStudents(Integer id);
+    CourseOnlyStudentsResponse getCourseStudents(Integer id);
 }

@@ -1,9 +1,6 @@
 package org.example.introspringboot.service.impl;
 
-import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
-import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
-import org.example.introspringboot.api.v1.dto.CourseResponse;
-import org.example.introspringboot.api.v1.dto.StudentDTO;
+import org.example.introspringboot.api.v1.dto.*;
 import org.example.introspringboot.api.v1.mappers.CourseMapper;
 import org.example.introspringboot.api.v1.mappers.StudentMapper;
 import org.example.introspringboot.entity.Course;
@@ -86,13 +83,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<StudentDTO> getCourseStudents(Integer id) {
-        return courseRepository.findById(id).
-                map(course -> course.getStudentCourses().stream()
-                        .map(studentCourse -> studentMapper.toDto(studentCourse.getStudent()))
-                        .toList()
-                )
-                .orElse(null);
+    public CourseOnlyStudentsResponse getCourseStudents(Integer id) {
+        Course course = courseRepository.findById(id).orElse(null);
+
+        List<StudentDTO> students = course.getStudentCourses().stream().map(
+            studentCourse -> studentMapper.toDto(studentCourse.getStudent())
+        ).toList();
+
+        CourseOnlyStudentsResponse response = new CourseOnlyStudentsResponse();
+
+        response.setStudents(students);
+
+        return response;
     }
 
 }
