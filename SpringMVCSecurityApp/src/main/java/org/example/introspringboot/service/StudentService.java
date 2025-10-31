@@ -28,4 +28,6 @@ public interface StudentService {
     StudentOnlyCoursesResponse getCoursesStudentId(Integer id);
 
     Page<StudentDTO> getStudentsByProgram(String program, Pageable pageable);
+
+    void createStudent(StudentDTO studentDTO);
 }

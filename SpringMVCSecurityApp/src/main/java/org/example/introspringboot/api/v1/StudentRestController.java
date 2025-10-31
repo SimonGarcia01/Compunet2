@@ -1,5 +1,6 @@
 package org.example.introspringboot.api.v1;
 
+import org.example.introspringboot.api.v1.dto.MessageResponse;
 import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
 import org.example.introspringboot.service.StudentService;
@@ -31,5 +32,13 @@ public class StudentRestController {
     public ResponseEntity<?> getStudentsByProgram(@RequestParam String program){
         Page<StudentDTO> students = studentService.getStudentsByProgram(program, PageRequest.of(0, 2));
         return ResponseEntity.status(200).body(students);
+    }
+
+    //REST E9.
+    @PostMapping("")
+    @PreAuthorize("hasAuthority('ROLE_PROFESSOR')")
+    public ResponseEntity<?> addStudent(@RequestBody StudentDTO studentDTO) {
+        studentService.createStudent(studentDTO);
+        return ResponseEntity.status(200).body(new MessageResponse("Student Created Successfully"));
     }
 }

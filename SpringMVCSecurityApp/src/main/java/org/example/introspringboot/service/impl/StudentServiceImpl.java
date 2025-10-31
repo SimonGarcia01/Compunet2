@@ -87,5 +87,11 @@ public class StudentServiceImpl implements StudentService {
                 studentMapper::toDto
         );
     }
+
+    @Override
+    public void createStudent(StudentDTO studentDTO) {
+        Student student = studentMapper.toEntity(studentDTO);
+        studentRepository.save(student);
+    }
 }
 

@@ -1,39 +1,31 @@
 package org.example.introspringboot.api.v1.mappers;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.processing.Generated;
 import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.entity.Student;
-import org.example.introspringboot.entity.StudentCourse;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-24T22:52:57-0500",
+    date = "2025-10-31T12:13:52-0500",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.8 (Oracle Corporation)"
 )
 @Component
 public class StudentMapperImpl implements StudentMapper {
 
     @Override
-    public Student toEntity(Student student) {
-        if ( student == null ) {
+    public Student toEntity(StudentDTO studentDTO) {
+        if ( studentDTO == null ) {
             return null;
         }
 
-        Student student1 = new Student();
+        Student student = new Student();
 
-        student1.setId( student.getId() );
-        List<StudentCourse> list = student.getStudentCourses();
-        if ( list != null ) {
-            student1.setStudentCourses( new ArrayList<StudentCourse>( list ) );
-        }
-        student1.setName( student.getName() );
-        student1.setCode( student.getCode() );
-        student1.setProgram( student.getProgram() );
+        student.setName( studentDTO.getName() );
+        student.setCode( studentDTO.getCode() );
+        student.setProgram( studentDTO.getProgram() );
 
-        return student1;
+        return student;
     }
 
     @Override
