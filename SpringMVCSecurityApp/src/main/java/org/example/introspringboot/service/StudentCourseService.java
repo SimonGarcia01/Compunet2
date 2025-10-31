@@ -14,4 +14,6 @@ public interface StudentCourseService {
     void deleteById(StudentCourseId id);
 
     void createEnrollment(StudentCourseRequest enrollmentRequest);
+
+    void deleteEnrollment(Integer studentId, Integer courseId);
 }

@@ -58,4 +58,10 @@ public class StudentCourseServiceImpl implements StudentCourseService {
 
         studentCourseRepository.save(studentCourse);
     }
+
+    @Override
+    public void deleteEnrollment(Integer studentId, Integer courseId) {
+        StudentCourseId id = new StudentCourseId(studentId, courseId);
+        studentCourseRepository.deleteById(id);
+    }
 }
