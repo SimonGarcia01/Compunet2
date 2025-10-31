@@ -19,6 +19,13 @@ public class StudentCourse {
     private Student student;
 
     public StudentCourse() {
+        //Default constructor
+    }
+
+    public StudentCourse(StudentCourseId studentCourseId, Course course, Student student) {
+        this.studentCourseId = studentCourseId;
+        this.course = course;
+        this.student = student;
     }
 
     public StudentCourseId getStudentCourseId() {

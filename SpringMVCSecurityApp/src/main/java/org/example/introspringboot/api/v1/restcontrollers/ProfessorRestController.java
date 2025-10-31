@@ -1,8 +1,7 @@
-package org.example.introspringboot.api.v1;
+package org.example.introspringboot.api.v1.restcontrollers;
 
 import org.example.introspringboot.api.v1.dto.MessageResponse;
 import org.example.introspringboot.api.v1.dto.ProfessorDTO;
-import org.example.introspringboot.entity.Professor;
 import org.example.introspringboot.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

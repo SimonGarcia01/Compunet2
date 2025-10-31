@@ -1,4 +1,4 @@
-package org.example.introspringboot.api.v1;
+package org.example.introspringboot.api.v1.restcontrollers;
 
 import org.example.introspringboot.api.v1.dto.AuthRequest;
 import org.example.introspringboot.api.v1.dto.AuthResponse;
@@ -6,10 +6,8 @@ import org.example.introspringboot.api.v1.dto.MessageResponse;
 import org.example.introspringboot.security.CustomUserDetailService;
 import org.example.introspringboot.security.JWTService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;

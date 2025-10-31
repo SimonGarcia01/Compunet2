@@ -1,5 +1,6 @@
 package org.example.introspringboot.service;
 
+import org.example.introspringboot.api.v1.dto.StudentCourseRequest;
 import org.example.introspringboot.entity.StudentCourse;
 import org.example.introspringboot.entity.StudentCourseId;
 
@@ -11,4 +12,6 @@ public interface StudentCourseService {
     Optional<StudentCourse> findById(StudentCourseId id);
     StudentCourse save(StudentCourse studentCourse);
     void deleteById(StudentCourseId id);
+
+    void createEnrollment(StudentCourseRequest enrollmentRequest);
 }

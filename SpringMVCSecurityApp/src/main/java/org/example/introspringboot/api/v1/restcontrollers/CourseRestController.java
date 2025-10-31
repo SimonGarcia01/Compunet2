@@ -1,4 +1,4 @@
-package org.example.introspringboot.api.v1;
+package org.example.introspringboot.api.v1.restcontrollers;
 
 import org.example.introspringboot.api.v1.dto.*;
 import org.example.introspringboot.service.CourseService;
