@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,4 +64,13 @@ public class CourseRestController {
         CourseOnlyStudentsResponse students = courseService.getCourseStudents(id);
         return ResponseEntity.status(200).body(students);
     }
+
+    //Rest E7.
+    @GetMapping("/enrollments")
+    @PreAuthorize("hasRole('PROFESSOR')")
+    public ResponseEntity<?> getAllCoursesEnrollments(){
+        List<CourseEnrollmentResponse> courses = courseService.getCoursesEnrollment();
+        return ResponseEntity.status(200).body(courses);
+    }
+
 }

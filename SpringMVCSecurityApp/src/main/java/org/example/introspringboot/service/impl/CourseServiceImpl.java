@@ -97,4 +97,15 @@ public class CourseServiceImpl implements CourseService {
         return response;
     }
 
+    @Override
+    public List<CourseEnrollmentResponse> getCoursesEnrollment() {
+        return courseRepository.findAll().stream().map(
+            course -> {
+                var courseEnrollment = courseMapper.toCourseEnrollment(course);
+                courseEnrollment.setEnrolledStudents(course.getStudentCourses().size());
+                return courseEnrollment;
+            }
+        ).toList();
+    }
+
 }

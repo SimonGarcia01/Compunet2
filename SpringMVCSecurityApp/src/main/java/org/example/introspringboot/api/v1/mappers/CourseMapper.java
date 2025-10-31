@@ -1,5 +1,6 @@
 package org.example.introspringboot.api.v1.mappers;
 
+import org.example.introspringboot.api.v1.dto.CourseEnrollmentResponse;
 import org.example.introspringboot.api.v1.dto.CourseProfessorResponse;
 import org.example.introspringboot.api.v1.dto.CourseProfessorStudentListResponse;
 import org.example.introspringboot.api.v1.dto.CourseResponse;
@@ -32,6 +33,8 @@ public interface CourseMapper {
     //For the basic course with no professor or students
     //No need for any mapping, they are all named the same within the course and DTO
     public CourseResponse toBasicCourse(Course course);
+
+    public CourseEnrollmentResponse toCourseEnrollment(Course course);
 
     // Helper method for MapStruct to use when mapping the list
     //This is not great practice since we can lose control of the transformation

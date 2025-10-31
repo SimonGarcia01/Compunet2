@@ -20,4 +20,6 @@ public interface CourseService {
     Page<CourseResponse> getCourseWName(String name, Pageable pageable);
 
     CourseOnlyStudentsResponse getCourseStudents(Integer id);
+
+    List<CourseEnrollmentResponse> getCoursesEnrollment();
 }

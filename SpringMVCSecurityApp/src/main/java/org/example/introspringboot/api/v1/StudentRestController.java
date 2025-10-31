@@ -1,4 +1,4 @@
-package org.example.introspringboot;
+package org.example.introspringboot.api.v1;
 
 import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
