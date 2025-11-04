@@ -3,7 +3,8 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography';
-import './App.css'
+import './App.css';
+import login from './actions/Login';
 
 //Prop / Property example where the title is passed to the component
 const LoginForm =({title}) => {
@@ -12,6 +13,7 @@ const LoginForm =({title}) => {
     const [password, setPassword] = useState("");
 
     const handleLogin = () => {
+        login({username:username, password:password});
         console.log(username);
         console.log(password);
     }
