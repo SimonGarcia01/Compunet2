@@ -1,7 +1,9 @@
+import {baseurl} from '../utils/constant';
+
 const getAllProfessors = async () => {
     let token = localStorage.getItem("accessToken");
     let response = await fetch(
-        "http://localhost:8080/api/v1/professors/",
+        `${baseurl}/auth/login/`,
         {
             method: "GET",
             headers:{

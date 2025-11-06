@@ -1,5 +1,7 @@
 //This will make the logic for the login action
 
+import {baseurl} from '../utils/constant';
+
 const login = async ({username, password}) => {
 
     let obj = {username: username, password: password};
@@ -7,22 +9,24 @@ const login = async ({username, password}) => {
     //Convert a OBJ to a String
     let json = JSON.stringify(obj);
 
-    let response = await fetch('http://localhost:8080/api/v1/auth/login/', {
+    let response = await fetch(`${baseurl}/auth/login/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: json
     });
-    //To get the status code
-    console.log(response.status)
-    //To get the body
-    let data = await response.json();
-    //Print the accessToken
-    console.log(data.accessToken);
 
-    //This is a preloaded variable from js
-    localStorage.setItem("accessToken", data.accessToken);
+    //Check if the login actually worked
+    if(response.status === 200) {
+            let data = await response.json();
+            //Print the accessToken
+            console.log(data.accessToken);
+            //This is a preloaded variable from js
+            localStorage.setItem("accessToken", data.accessToken);
+    } else {
+        throw new Error("The login couldn't be done correctly.")
+    }
 }
 
 //This makes the module, but we need to consume it somewhere
