@@ -89,7 +89,8 @@ public class WebSecurityConfig {
                         sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 //The csrf token is disabled
                 ).csrf(csrf -> csrf.disable())
-
+                //This line was necessary so the first OPTIONS response is done right
+                .cors(cors -> {})
                 //Now we are blocking the app using exceptions
                 .exceptionHandling(ex -> ex
                 //If the user doesn't have the right credentials it will be blocked = 401
