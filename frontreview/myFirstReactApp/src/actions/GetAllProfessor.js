@@ -3,7 +3,7 @@ import {baseurl} from '../utils/constant';
 const getAllProfessors = async () => {
     let token = localStorage.getItem("accessToken");
     let response = await fetch(
-        `${baseurl}/auth/login/`,
+        `${baseurl}/professors/`,
         {
             method: "GET",
             headers:{
