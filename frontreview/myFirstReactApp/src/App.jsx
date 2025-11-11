@@ -33,6 +33,7 @@ const router = createBrowserRouter([
   },
   {
     //This for the detail of a student
+    //This will allow the project to use the useParams hook to get the ID
     path:"/students/:studentId",
     element:<StudentDetailScreen/>
   },
