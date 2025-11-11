@@ -14,12 +14,24 @@ import {
 } from "react-router-dom";
 import StudentListScreen from './screens/StudentListScreen.jsx';
 import StudentDetailScreen from './screens/StudentDetailScreen.jsx';
+import HomeScreen from './screens/HomeScreen.jsx';
 
 const router = createBrowserRouter([
   {
     //This will handle going first to the login
     path: "/",
     element: <LoginForm></LoginForm>
+  },
+  {
+    path: "/home",
+    element:<HomeScreen paths={[
+      {path:"", text:"Students"},
+      {path:"", text:"Professors"},
+      {path:"", text:"Configurations"}
+    ]}/>,
+    children: [
+      {}
+    ]
   },
   {
     //This will re-route to the professors
@@ -34,7 +46,7 @@ const router = createBrowserRouter([
   {
     //This for the detail of a student
     //This will allow the project to use the useParams hook to get the ID
-    path:"/students/:studentId",
+    path:"/students/:studentCode",
     element:<StudentDetailScreen/>
   },
   {
