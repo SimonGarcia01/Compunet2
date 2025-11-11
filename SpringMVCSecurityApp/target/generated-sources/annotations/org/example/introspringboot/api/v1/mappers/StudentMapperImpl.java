@@ -1,13 +1,14 @@
 package org.example.introspringboot.api.v1.mappers;
 
 import javax.annotation.processing.Generated;
+import org.example.introspringboot.api.v1.dto.StudentCompleteResponse;
 import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.entity.Student;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-31T12:13:52-0500",
+    date = "2025-11-11T12:18:12-0500",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.8 (Oracle Corporation)"
 )
 @Component
@@ -41,5 +42,21 @@ public class StudentMapperImpl implements StudentMapper {
         studentDTO.setProgram( student.getProgram() );
 
         return studentDTO;
+    }
+
+    @Override
+    public StudentCompleteResponse toDetailedStudent(Student student) {
+        if ( student == null ) {
+            return null;
+        }
+
+        StudentCompleteResponse studentCompleteResponse = new StudentCompleteResponse();
+
+        studentCompleteResponse.setId( student.getId() );
+        studentCompleteResponse.setName( student.getName() );
+        studentCompleteResponse.setCode( student.getCode() );
+        studentCompleteResponse.setProgram( student.getProgram() );
+
+        return studentCompleteResponse;
     }
 }

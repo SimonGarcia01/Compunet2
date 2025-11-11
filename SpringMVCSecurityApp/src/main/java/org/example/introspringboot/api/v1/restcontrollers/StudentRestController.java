@@ -3,7 +3,7 @@ package org.example.introspringboot.api.v1.restcontrollers;
 import org.example.introspringboot.api.v1.dto.MessageResponse;
 import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
-import org.example.introspringboot.entity.Student;
+import org.example.introspringboot.api.v1.dto.StudentCompleteResponse;
 import org.example.introspringboot.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,11 +22,10 @@ public class StudentRestController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{code}")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public ResponseEntity<?> getStudentById(@PathVariable String id) {
-        //I know I should respond with a DTO but I will just use the complete entity
-        Student student = studentService.findStudentByCode(id).orElse(null);
+    public ResponseEntity<?> getStudentById(@PathVariable String code) {
+        StudentCompleteResponse student = studentService.findDetailsByCode(code);
         return ResponseEntity.status(200).body(student);
     }
 

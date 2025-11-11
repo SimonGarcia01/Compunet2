@@ -1,5 +1,6 @@
 package org.example.introspringboot.service;
 
+import org.example.introspringboot.api.v1.dto.StudentCompleteResponse;
 import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
 import org.example.introspringboot.entity.Student;
@@ -34,4 +35,6 @@ public interface StudentService {
     void updateStudent(Integer id, StudentDTO request);
 
     List<StudentDTO> getAllStudents();
+
+    StudentCompleteResponse findDetailsByCode(String code);
 }

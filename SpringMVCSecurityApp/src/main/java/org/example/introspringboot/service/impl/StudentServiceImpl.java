@@ -1,6 +1,7 @@
 package org.example.introspringboot.service.impl;
 
 import org.example.introspringboot.api.v1.dto.CourseResponse;
+import org.example.introspringboot.api.v1.dto.StudentCompleteResponse;
 import org.example.introspringboot.api.v1.dto.StudentDTO;
 import org.example.introspringboot.api.v1.dto.StudentOnlyCoursesResponse;
 import org.example.introspringboot.api.v1.mappers.CourseMapper;
@@ -117,6 +118,24 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll().stream().map(
                 studentMapper::toDto
         ).toList();
+    }
+
+    @Override
+    public StudentCompleteResponse findDetailsByCode(String code) {
+        return studentRepository.findByCode(code)
+                .map(student -> {
+                    StudentCompleteResponse response = studentMapper.toDetailedStudent(student);
+
+                    List<CourseResponse> courses = student.getStudentCourses().stream()
+                            .map(studentCourse ->
+                                    courseMapper.toBasicCourse(studentCourse.getCourse())
+                            )
+                            .toList();
+
+                    response.setCourses(courses);
+
+                    return response;
+                }).orElse(null);
     }
 
 }
