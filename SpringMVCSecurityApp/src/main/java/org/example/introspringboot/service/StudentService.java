@@ -32,4 +32,6 @@ public interface StudentService {
     void createStudent(StudentDTO studentDTO);
 
     void updateStudent(Integer id, StudentDTO request);
+
+    List<StudentDTO> getAllStudents();
 }

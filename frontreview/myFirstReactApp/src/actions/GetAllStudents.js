@@ -5,7 +5,7 @@ import {baseurl} from '../utils/constant';
 const getAllStudents = async () => {
     let token = localStorage.getItem("accessToken");
     let response = await fetch(
-        `${baseurl}/auth/login/`,
+        `${baseurl}/students`,
         {
             method: "GET",
             headers:{

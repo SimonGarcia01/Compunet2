@@ -12,6 +12,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import StudentListScreen from './screens/StudentListScreen.jsx';
+import StudentDetailScreen from './screens/StudentDetailScreen.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,16 @@ const router = createBrowserRouter([
     //This will re-route to the professors
     path:"/professors",
     element:<ProfessorListScreen></ProfessorListScreen>
+  },
+  {
+    //This is for the students
+    path:"/students",
+    element:<StudentListScreen/>
+  },
+  {
+    //This for the detail of a student
+    path:"/students/:studentId",
+    element:<StudentDetailScreen/>
   },
   {
     //Any other route the user wants to go to

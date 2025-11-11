@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = {"http://localhost:5173"})
 @RestController
 @RequestMapping("/api/v1/students")
 public class StudentRestController {
@@ -29,9 +32,20 @@ public class StudentRestController {
     //REST E6.
     @GetMapping("")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public ResponseEntity<?> getStudentsByProgram(@RequestParam String program){
-        Page<StudentDTO> students = studentService.getStudentsByProgram(program, PageRequest.of(0, 2));
-        return ResponseEntity.status(200).body(students);
+    public ResponseEntity<?> getStudents(
+            @RequestParam(required = false) String program,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size
+    ) {
+        // No filter → return ALL students (List)
+        if (program == null || program.isBlank()) {
+            List<StudentDTO> students = studentService.getAllStudents();
+            return ResponseEntity.ok(students);
+        }
+
+        // With filter → return paged students
+        Page<StudentDTO> students = studentService.getStudentsByProgram(program, PageRequest.of(page, size));
+        return ResponseEntity.ok(students);
     }
 
     //REST E9.

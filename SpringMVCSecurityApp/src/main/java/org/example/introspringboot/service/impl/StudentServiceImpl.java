@@ -112,5 +112,12 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
     }
 
+    @Override
+    public List<StudentDTO> getAllStudents() {
+        return studentRepository.findAll().stream().map(
+                studentMapper::toDto
+        ).toList();
+    }
+
 }
 

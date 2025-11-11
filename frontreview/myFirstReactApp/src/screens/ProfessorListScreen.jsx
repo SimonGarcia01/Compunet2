@@ -30,7 +30,7 @@ const ProfessorListScreen = () => {
     //Organizing the graphical part here
     return (
         <Stack direction="column">
-            <Typography>Professor List:</Typography>
+            <Typography variant="h2">Professor List</Typography>
             {list.length !== 0 && list.map((obj) => (<Typography key={obj.id}>{obj.name}</Typography>))}
         </Stack>
     );
