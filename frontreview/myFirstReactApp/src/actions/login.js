@@ -24,6 +24,8 @@ const login = async ({username, password}) => {
             console.log(data.accessToken);
             //This is a preloaded variable from js
             localStorage.setItem("accessToken", data.accessToken);
+            //This is a promise string that returns the access token
+            return data.accessToken;
     } else {
         throw new Error("The login couldn't be done correctly.")
     }

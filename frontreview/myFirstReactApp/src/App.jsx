@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import './App.css';
-import LoginForm from './screens/LoginForm.jsx';
+import LoginForm from './screens/LoginForm';
 import ProfessorListScreen from './screens/ProfessorListScreen';
 import NotFound from './screens/ProfessorListScreen';
 
@@ -16,6 +16,7 @@ import StudentListScreen from './screens/StudentListScreen.jsx';
 import StudentDetailScreen from './screens/StudentDetailScreen.jsx';
 import HomeScreen from './screens/HomeScreen.jsx';
 import ConfigScreen from './screens/ConfigScreen.jsx';
+import {AppProvider} from './context/AppContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -74,11 +75,15 @@ const router = createBrowserRouter([
     path: "*",
     element: <NotFound/>
   }
-]);
+  //NEEDED TO ADD SECOND PARAMETER FOR DEPLOYMENT
+], {basename: '/front'});
 
 const App = () => {
   return(
-    <RouterProvider router={router}></RouterProvider>
+    //Inject it in one of the top level
+    <AppProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AppProvider>
   );
 }
 
