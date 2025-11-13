@@ -26,7 +26,7 @@ const StudentListScreen = ()=>{
             {list.length !== 0 && 
                 list.map( 
                     (obj)=> (<StudentComponent key={obj.code} student={obj} onClicked={ 
-                        ()=> navigate(`/students/${obj.code}`) 
+                        ()=> navigate(`/home/students/${obj.code}`) 
                 }/>) )}
             {/* {list.length !== 0 && list.map( (obj)=> (<Typography key={obj.code}>{obj.name}</Typography>) )} */}
         </Stack>

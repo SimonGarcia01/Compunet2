@@ -20,7 +20,7 @@ const LoginForm =({title}) => {
     const handleLogin = async () => {
         try{
             await login({username:username, password:password});
-            navigate("/students");
+            navigate("/home");
         } catch(e) {
             setError(e.message);
         }

@@ -15,6 +15,7 @@ import {
 import StudentListScreen from './screens/StudentListScreen.jsx';
 import StudentDetailScreen from './screens/StudentDetailScreen.jsx';
 import HomeScreen from './screens/HomeScreen.jsx';
+import ConfigScreen from './screens/ConfigScreen.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,29 +27,48 @@ const router = createBrowserRouter([
     path: "/home",
     element:<HomeScreen paths={[
       {path:"", text:"Students"},
-      {path:"", text:"Professors"},
-      {path:"", text:"Configurations"}
+      {path:"professors", text:"Professors"},
+      {path:"config", text:"Configurations"}
     ]}/>,
     children: [
-      {}
+      {
+        //This is the default route for home
+        index: true,
+        element: <StudentListScreen/>
+      },
+      {
+        //This is for the professors screen
+         path:"professors",
+        element:<ProfessorListScreen/>
+      },
+      {
+        path:"config",
+        element: <ConfigScreen/>
+      },
+      {
+        //Version within the home path
+        //Must start without a slash
+        path:"students/:studentCode",
+        element:<StudentDetailScreen/>
+      },
     ]
   },
-  {
-    //This will re-route to the professors
-    path:"/professors",
-    element:<ProfessorListScreen></ProfessorListScreen>
-  },
-  {
-    //This is for the students
-    path:"/students",
-    element:<StudentListScreen/>
-  },
-  {
-    //This for the detail of a student
-    //This will allow the project to use the useParams hook to get the ID
-    path:"/students/:studentCode",
-    element:<StudentDetailScreen/>
-  },
+  // {
+  //   //This will re-route to the professors
+  //   path:"/professors",
+  //   element:<ProfessorListScreen></ProfessorListScreen>
+  // },
+  // {
+  //   //This is for the students
+  //   path:"/students",
+  //   element:<StudentListScreen/>
+  // },
+  // {
+  //   //This for the detail of a student
+  //   //This will allow the project to use the useParams hook to get the ID
+  //   path:"/students/:studentCode",
+  //   element:<StudentDetailScreen/>
+  // },
   {
     //Any other route the user wants to go to
     path: "*",
