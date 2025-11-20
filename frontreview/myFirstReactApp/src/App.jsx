@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         //This is for the professors screen
-         path:"professors",
+        path:"professors",
         element:<ProfessorListScreen/>
       },
       {

@@ -29,13 +29,20 @@ public class StudentRestController {
         return ResponseEntity.status(200).body(student);
     }
 
-    //REST E5.
-    @GetMapping("/{id}/courses")
+    @GetMapping("/{studentCode}/courses")
     @PreAuthorize("hasRole('PROFESSOR')")
-    public ResponseEntity<?> getCoursesOfStudent(@PathVariable("id") Integer id) {
-        StudentOnlyCoursesResponse courses = studentService.getCoursesStudentId(id);
+    public ResponseEntity<?> getCoursesOfStudent(@PathVariable("studentCode") String code) {
+        StudentOnlyCoursesResponse courses = studentService.getCoursesStudentCode(code);
         return ResponseEntity.status(200).body(courses);
     }
+
+    //REST E5.
+//    @GetMapping("/{id}/courses")
+//    @PreAuthorize("hasRole('PROFESSOR')")
+//    public ResponseEntity<?> getCoursesOfStudent(@PathVariable("id") Integer id) {
+//        StudentOnlyCoursesResponse courses = studentService.getCoursesStudentId(id);
+//        return ResponseEntity.status(200).body(courses);
+//    }
 
     //REST E6.
     @GetMapping("")

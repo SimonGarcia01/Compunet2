@@ -37,4 +37,6 @@ public interface StudentService {
     List<StudentDTO> getAllStudents();
 
     StudentCompleteResponse findDetailsByCode(String code);
+
+    StudentOnlyCoursesResponse getCoursesStudentCode(String code);
 }

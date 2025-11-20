@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import getStudentByCode from "../actions/GetStudentByCode";
 import getCoursesByStudentId from "../actions/GetCoursesByStudentId";
 
-
+import StudentComponent from "../component/StudentComponent";
+import CourseComponent from "../component/CourseComponente";
 
 const  StudentDetailScreen = ()=>{
     //This will get the parameter from the url that is sent with
@@ -16,12 +17,16 @@ const  StudentDetailScreen = ()=>{
 
     const getStudent = async (studentCode) => {
         const student = await getStudentByCode({studentCode: studentCode});
+        console.log(student);
         setStudent(student);
     }
 
     const getStudentCourses = async (studentCode) => {
         const courses = await getCoursesByStudentId({studentCode: studentCode});
-        setCourses(courses);
+        //Had to add the courses.courses since my back returns
+        //A list of courses in an array, I had to get it out.
+        console.log(courses.courses);
+        setCourses(courses.courses);
     }
 
     useEffect(()=>{
@@ -34,8 +39,8 @@ const  StudentDetailScreen = ()=>{
         <Stack>
             {student !== null && <StudentComponent student={student}/>}
             <Stack>
-                {courses.length !== 0 && courses.map(
-                    (course) => (<CourseComponent key={course.id} course={course}></CourseComponent>)
+                {courses.courses.length !== 0 && courses.courses.map(
+                    (course) => (<CourseComponent key={course.name} course={course}></CourseComponent>)
                 )}
             </Stack>
         </Stack>

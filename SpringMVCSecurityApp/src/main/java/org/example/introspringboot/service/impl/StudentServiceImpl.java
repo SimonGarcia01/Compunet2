@@ -138,5 +138,20 @@ public class StudentServiceImpl implements StudentService {
                 }).orElse(null);
     }
 
+    @Override
+    public StudentOnlyCoursesResponse getCoursesStudentCode(String code) {
+        Student student = studentRepository.findByCode(code).orElse(null);
+
+        List<CourseResponse> courses = student.getStudentCourses().stream().map(
+                studentCourse -> courseMapper.toBasicCourse(studentCourse.getCourse())
+        ).toList();
+
+        StudentOnlyCoursesResponse response = new StudentOnlyCoursesResponse();
+
+        response.setCourses(courses);
+
+        return response;
+    }
+
 }
 
