@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Primary color: #5453E0 converted to HSL (240, 69%, 60%) */
+    --primary-hue: 240;
+    --primary-saturation: 69%;
+    --primary-lightness: 60%;
+
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    /* Primary: #5453E0 */
+    --primary: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Mix of primary with black (darker purple-black) */
+    --secondary: var(--primary-hue) 40% 20%;
+    --secondary-foreground: var(--primary-hue) 30% 90%;
+
+    /* Muted: Very light mix of primary with white/gray */
+    --muted: var(--primary-hue) 20% 96%;
+    --muted-foreground: var(--primary-hue) 30% 35%;
+
+    /* Accent: Primary color mixed with black (darker purple) */
+    --accent: var(--primary-hue) 65% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border: Light mix of primary with gray/black */
+    --border: var(--primary-hue) 15% 85%;
+    --input: var(--primary-hue) 15% 88%;
+    --ring: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+
+    --radius: 0rem;
+
+    /* Sidebar: Mix of primary with black/white */
+    --sidebar-background: var(--primary-hue) 15% 97%;
+    --sidebar-foreground: var(--primary-hue) 40% 12%;
+    --sidebar-primary: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: var(--primary-hue) 30% 92%;
+    --sidebar-accent-foreground: var(--primary-hue) 60% 25%;
+    --sidebar-border: var(--primary-hue) 15% 85%;
+    --sidebar-ring: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    /* Cards: Dark mix of primary with black */
+    --card: var(--primary-hue) 25% 8%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: var(--primary-hue) 25% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Primary: #5453E0 - Mixed with black for dark mode */
+    --primary: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Darker mix of primary with black */
+    --secondary: var(--primary-hue) 35% 18%;
+    --secondary-foreground: var(--primary-hue) 40% 85%;
+
+    /* Muted: Dark mix of primary with black */
+    --muted: var(--primary-hue) 20% 12%;
+    --muted-foreground: var(--primary-hue) 25% 70%;
+
+    /* Accent: Primary color mixed with black (darker) */
+    --accent: var(--primary-hue) 65% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border: Dark mix of primary with black */
+    --border: var(--primary-hue) 20% 20%;
+    --input: var(--primary-hue) 20% 20%;
+    --ring: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+    
+    /* Sidebar: Dark mix of primary with black */
+    --sidebar-background: var(--primary-hue) 30% 5%;
+    --sidebar-foreground: var(--primary-hue) 20% 90%;
+    --sidebar-primary: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: var(--primary-hue) 30% 15%;
+    --sidebar-accent-foreground: var(--primary-hue) 40% 80%;
+    --sidebar-border: var(--primary-hue) 20% 20%;
+    --sidebar-ring: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+  background-size: 200% auto;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(84, 83, 224, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(84, 83, 224, 0.8);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}

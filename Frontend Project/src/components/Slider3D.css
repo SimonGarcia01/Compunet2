@@ -1,0 +1,186 @@
+@import url('https://fonts.cdnfonts.com/css/ica-rubrik-black');
+
+.banner{
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  background-color: #000000;
+  background-image:
+    repeating-linear-gradient(to right, transparent 0 100px, #ffffff11 100px 101px),
+    repeating-linear-gradient(to bottom, transparent 0 100px, #ffffff11 100px 101px);
+  isolation: isolate;
+}
+
+.banner .slider{
+  position: absolute;
+  width: 200px;
+  height: 250px;
+  top: 10%;
+  left: calc(50% - 100px);
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  animation: autoRun 20s linear infinite;
+  z-index: 1;
+}
+@keyframes autoRun{
+  from{ transform: perspective(1000px) rotateX(-16deg) rotateY(0deg); }
+  to{   transform: perspective(1000px) rotateX(-16deg) rotateY(360deg); }
+}
+
+.banner .slider .item{
+  position: absolute;
+  inset: 0;
+  transform:
+    rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+    translateZ(400px);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.banner .slider .item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.banner .content{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: max-content;
+  padding: 0 2rem 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  z-index: 10;
+  pointer-events: none;
+  isolation: isolate;
+  box-sizing: border-box;
+}
+.banner .content h1{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 16em;
+  line-height: 1em;
+  color: #ffffff;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  letter-spacing: -0.02em;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  display: block;
+  box-sizing: border-box;
+}
+.banner .content h1::after{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  content: attr(data-content);
+  z-index: 2;
+  -webkit-text-stroke: 2px #ffffff;
+  color: transparent;
+  white-space: nowrap;
+}
+.banner .content .author{
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  pointer-events: auto;
+  color: #ffffff;
+  margin: 0 auto;
+  padding: 0;
+}
+.banner .content h2{ 
+  font-size: 2em;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+.banner .content .author p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+.banner .content .author p b {
+  font-weight: 700;
+}
+
+/* responsiveness */
+@media screen and (max-width: 1023px) {
+  .banner .slider{ width: 160px; height: 200px; left: calc(50% - 80px); }
+  .banner .slider .item{
+    transform:
+      rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(250px);
+  }
+  .banner .content{
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    padding: 0 1.5rem 80px;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  .banner .content h1{
+    text-align: center; 
+    width: 100%;
+    text-shadow: 0 10px 20px #000; 
+    font-size: 7em;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .banner .content .author{
+    color: #fff; 
+    text-shadow: 0 10px 20px #000;
+    z-index: 10; 
+    max-width: 100%; 
+    width: 100%;
+    text-align: center; 
+    padding: 0 30px;
+    pointer-events: auto;
+    margin: 0 auto;
+  }
+}
+@media screen and (max-width: 767px) {
+  .banner .slider{ width: 100px; height: 150px; left: calc(50% - 50px); }
+  .banner .slider .item{
+    transform:
+      rotateY(calc( (var(--position) - 1) * (360 / var(--quantity)) * 1deg))
+      translateZ(150px);
+  }
+  .banner .content{
+    padding: 0 1rem 60px;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  .banner .content h1{ 
+    font-size: 5em; 
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .banner .content .author{
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner .slider { animation: none; }
+}
